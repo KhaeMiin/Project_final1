@@ -109,6 +109,46 @@ public class ProductDao {
 		
 		return list;
 	}
+	public List<ProductDto> getSearch(String subject) {
+		
+		List<ProductDto> list = new Vector<ProductDto>();
+		
+		Connection conn = db.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "select * from Product where subject=?";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, subject);
+			//바인딩
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductDto dto = new ProductDto();
+				dto.setNum(rs.getString("num"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
+				dto.setPhotoname(rs.getString("photoname"));
+				dto.setReadcount(rs.getInt("readcount"));
+				dto.setWriteday(rs.getTimestamp("writeday"));
+				
+				//list에 추가
+				list.add(dto);
+				
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			db.dbClose(rs, pstmt, conn);
+		}
+		
+		return list;
+	}
 	
 	//페이지에서 필요한 만큼만 리턴
 	public List<ProductDto> getAllDatas() {

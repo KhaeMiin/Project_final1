@@ -49,12 +49,10 @@ String myid = (String)session.getAttribute("myid");
 						class="nav-link dropdown-toggle" href="#" id="dropdown04"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Products</a>
 						<div class="dropdown-menu" aria-labelledby="dropdown04">
-							<a class="dropdown-item" href="index.jsp?main=product/productform.jsp">Products</a> <a
-								class="dropdown-item" href="product-single.jsp">Single
-								Product</a>  
-								<a class="dropdown-item reservation">Reservation</a>
- 								<!-- <a class="dropdown-item reservation" href="index.jsp?main=reservation/reservationform.jsp">Reservation</a>  -->
-						</div>
+							<a class="dropdown-item" href="index.jsp?main=product/productform.jsp">Products</a> 
+							<a class="dropdown-item reservation">Reservation</a>
+							<a class="dropdown-item reservation2">Reservation Confirm</a>  
+ 						</div>
 					</li>
 					<li class="nav-item"><a href="index.jsp?main=event/eventlist.jsp" class="nav-link">Event</a></li>
 						<li class="nav-item"><a href="index.jsp?main=review/reviewList.jsp" class="nav-link">review</a></li>
@@ -72,7 +70,16 @@ $(".reservation").click(function() {
 	}else{
 	 location.href = 'index.jsp?main=reservation/reservationform.jsp';
 	}
-})
+});
+$(".reservation2").click(function() {
+	if("<%=login%>" != 'yes'){
+		alert("로그인이 필요한 페이지입니다.")
+		location.href = 'index.jsp?main=login/loginMain.jsp';
+		return;
+	}else{
+	 location.href = 'index.jsp?main=reservation/reservationlist2.jsp';
+	}
+});
 </script>
 </body>
 </html> 

@@ -50,11 +50,11 @@ text-align: center;
 
 <!-- 이미지 미리보기할 위치 -->
 	<div>
-	<img id="showimg" style="position: absolute; left: 1400px; top:400px; max-width: 300px;">
-	<b style="position: absolute; left: 1400px; top:350px; max-width: 300px;">썸네일 이미지(미리보기)</b>
+	<img id="showimg" style="position: absolute; left: 1000px; top:400px; max-width: 300px;">
+	<b style="position: absolute; left: 1000px; top:350px; max-width: 300px;">썸네일 이미지(미리보기)</b>
 	</div>
 	
-	<form action="product/smartaction.jsp" method="post" enctype="multipart/form-data" style="margin-left: 700px; margin-top: 100px;">
+	<form action="product/smartaction.jsp" method="post" enctype="multipart/form-data" style="margin-left: 350px; margin-top: 100px;">
 		<table style="width: 580px;">
 
 			<tr>

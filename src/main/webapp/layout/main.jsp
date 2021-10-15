@@ -122,15 +122,21 @@ List<ProductDto> list2 = dao2.getTotal();
 	<section class="ftco-section ftco-no-pb">
 		<div class="container" style="font-family: 'Noto Sans KR:wght@400', sans-serif;">
 			<div class="row">
-			
+		<%
+		ProductDto pdto = new ProductDto();
+		
+		for(int i=0; i<6; i++){
+			ProductDto sdto =  list2.get(i);				
+		%>
 				<div class="col-lg-2 col-md-4 ">
 					<div class="sort w-100 text-center ftco-animate">
-						<div class="img" style="background-image: url(images/car1.jpg);"></div>
-						<h3>제네시스 G70</h3>
+						<div class="img" style="background-image: url(save/<%=sdto.getPhotoname() %>);"></div>
+						<h3><%=sdto.getSubject() %></h3>
 					</div>
 				</div>
 
-
+		<%}
+		%>
 			</div>
 		</div>
 	</section>
@@ -157,7 +163,7 @@ List<ProductDto> list2 = dao2.getTotal();
 							<div class="testimony-wrap py-4">
 								<div
 									class="icon d-flex align-items-center justify-content-center">
-									<span class="fa fa-quote-left">
+									<span class="fa fa-quote-left"></span>
 								</div>
 								<div class="text">
 									<p class="mb-4"><%=dto.getSubject() %>

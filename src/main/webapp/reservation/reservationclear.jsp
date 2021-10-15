@@ -1,7 +1,12 @@
+<%@page import="java.util.List"%>
+<%@page import="data.dao.ProductDao"%>
+<%@page import="data.dto.ProductDto"%>
+<%@page import="data.dto.LoginDto"%>
+<%@page import="data.dao.LoginDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Liquor Store - Free Bootstrap 4 Template by Colorlib</title>
 <meta charset="utf-8">
@@ -26,48 +31,55 @@
 
 <link rel="stylesheet" href="css/flaticon.css">
 <link rel="stylesheet" href="css/style.css">
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<style type="text/css">
+#fonts, #fontss, #fontss2, #fontss3 {
+	font-size: 1.5em;
+	color: black;
+}
+</style>
+
 </head>
+<%
+String email = (String) session.getAttribute("myid");
+LoginDao dao = new LoginDao();
+LoginDto dto = dao.getUserInfo(2, email);
+System.out.println(dto.getEmail());
+
+
+%>
 <body>
-					<div class="sidebar-box ftco-animate">
-						<h3>Recent Blog</h3>
-						<div class="block-21 mb-4 d-flex">
-							<a class="blog-img mr-4"
-								style="background-image: url(images/image_1.jpg);"></a>
-							<div class="text">
-								<h3 class="heading">
-									<a href="#">Even the all-powerful Pointing has no control
-										about the blind texts</a>
-								</h3>
-								<div class="meta">
-									<div>
-										<a href="#"><span class="fa fa-calendar"></span> Apr. 18,
-											2020</a>
-									</div>
-									<div>
-										<a href="#"><span class="fa fa-comment"></span> 19</a>
-									</div>
-								</div>
-							</div>
-						</div>
-		<div class="container">
-		<div class="row justify-content-center" style="height: 500px;">
-			<form action="product/searchaction.jsp" method="post"
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<form action="" method="post"
 				class="billing-form" onsubmit="return check(this)">
-				<input type="password" placeholder="검색할 차종,모델명을 입력하세요" name="subject" style="width: 270px;"
-					class="inputInfo" id="pw" required><br>
-					<div style="height: 20px;"></div>
-				<p>
-					<button type="submit" id="btn1" class="btn btn-primary py-3 px-4" style="width: 270px; height: 50px; text-align: center;">
-						검색</button>
-				</p>
+				<div style="height: 50px;"></div>
+				<h3 class="mb-4 billing-heading">Reservation complete</h3>
+
+				<div class="cart-detail cart-total p-3 p-md-4" style="width: 650px;">
+					<h3 class="billing-heading mb-4">Reservation</h3>
+					<p class="d-flex">
+						<span>Name :</span><%=dto.getName()%><span id="tex1">님</span>
+					</p>
+					<p class="d-flex">
+						<span>Date :</span><span id="tex2"></span>
+					</p>
+					<hr>
+					<p class="d-flex total-price">
+						<span>예약이 완료되었습니다</span> <span> </span>
+					</p>
+					<p>
+					<a href="index.jsp?main=reservation/reservationlist2.jsp"class="btn btn-primary py-3 px-4">Reservation Confirm</a>
+					</p>
+				</div>
 			</form>
 		</div>
 	</div>
-					</div>
-					
-					
-					
-						<script src="js/jquery.min.js"></script>
+
+
+
+	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>
 	<script src="js/popper.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
@@ -84,6 +96,6 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 	<script src="js/main.js"></script>
-					
+
 </body>
 </html>
