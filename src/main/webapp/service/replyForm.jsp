@@ -226,7 +226,7 @@ body{
 				 <input type="hidden" name="perPage" value="<%=perPage%>">
 				 <input type="hidden" name="keyField" value="<%=keyField%>">
 				 <input type="hidden" name="keyWord" value="<%=keyWord%>">
-				 <input type="hidden" name = "passw2" value = "<%=dto.getJaid()%>">
+				 <input type="text" name = "passw2" value = "<%=dto.getWriter()%>">
 				 
                 <div class="btnContainer">
                     <button type = "submit" class="baseBtn write">작성</button>

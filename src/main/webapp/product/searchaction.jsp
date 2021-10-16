@@ -11,6 +11,14 @@
 </head>
 <body>
 <%
+
+//로그인에 관한
+String email = (String)session.getAttribute("myid");
+//로그인상태 확인
+String loginok = (String)session.getAttribute("loginok");
+String admin = "admin";
+
+
 ProductDao dao = new ProductDao();
 
 
@@ -56,11 +64,6 @@ start = (currentPage-1) * perPage;
 List<ProductDto> list = dao.getSearch(search,start,perPage);
 
 
-//로그인에 관한
-String email = (String)session.getAttribute("myid");
-//로그인상태 확인
-String loginok = (String)session.getAttribute("loginok");
-String admin = "admin@naver.com";
 
 
 if(list.size()==0 && totalCount>0){%>
@@ -68,14 +71,13 @@ if(list.size()==0 && totalCount>0){%>
 	location.href = "index.jsp?main=product/productform.jsp?go=searchaction.jsp?currentPage=<%=currentPage -1%>"
 	</script>
 <%}
+
+int no = totalCount - (currentPage - 1 ) * perPage;
 %>
 <%
 if(totalCount == 0){%>
 	<div>
 		<b>등록된 상품이 없습니다</b>
-<%-- 		<script type="text/javascript">
-		alert("<%=search %>")
-		</script> --%>
 	</div>
 <%}else{
 for(ProductDto dto:list){
@@ -86,15 +88,14 @@ for(ProductDto dto:list){
 				style="background-image: url(save/<%=dto.getPhotoname() %>);">
 				<div class="desc">
 					<p class="meta-prod d-flex">
-						<a href="#"
 							class="d-flex align-items-center justify-content-center"><span
 							class="flaticon-shopping-bag"></span></a> <a href="../index.jsp?main=product/productform.jsp?go=detail.jsp"
 							class="d-flex align-items-center justify-content-center"><span
 							class="flaticon-heart">
-							</span></a> <a href="index.jsp?main=product/detail.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>&keydsds=list"
-							class="d-flex align-items-center justify-content-center"><span
-							class="flaticon-visibility"></span></a>
-					</a>
+							</span></a> 
+							<a href="index.jsp?main=product/detail.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>&keydsds=list">
+							<span class="flaticon-visibility"></span>
+							</a>
 					</p>
 				</div>
 			</div>
