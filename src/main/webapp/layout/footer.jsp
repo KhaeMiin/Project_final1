@@ -16,17 +16,17 @@
 					<div class="ftco-footer-widget mb-4">
 						<ul class="list-unstyled">
 						<h2 class="ftco-heading-2 logo" style=" font-size:18pt;">
-							<li><a href="#">온라인견적</a></li>
-							<li><a href="#">구매상담신청</a></li>
-							<li><a href="#">이달의 구매혜택</a></li>
-							<li><a href="#">시승 예약</a></li>
-							<li><a href="#">카탈로그/가격표</a></li>
+							<li><a href="index.jsp?main=service/servicemain.jsp">온라인견적</a></li>
+							<li><a href="index.jsp?main=service/servicemain.jsp">구매상담신청</a></li>
+							<li><a href="index.jsp?main=event/eventlist.jsp">이달의 구매혜택</a></li>
+							<li><a href="index.jsp?main=reservation/reservationform.jsp">시승 예약</a></li>
+							<li><a href="index.jsp?main=product/productform.jsp">카탈로그/가격표</a></li>
 							<li><a href="#">영업망 안내</a></li>
 							<li><a href="#">기아렌터카</a></li>
-							<li><a href="#">모델비교</a></li>
-							<li><a href="#">진행중인 이벤트</a></li>
-							<li><a href="#">고객센터</a></li>
-							<li><a href="#">사이트맵</a></li>
+							<li><a href="index.jsp?main=product/productform.jsp">모델비교</a></li>
+							<li><a href="index.jsp?main=event/eventlist.jsp">진행중인 이벤트</a></li>
+							<li><a href="index.jsp?main=service/servicemain.jsp">고객센터</a></li>
+							<li><a href="index.jsp">사이트맵</a></li>
 						</h2>
 						</ul>
 						<ul class="ftco-footer-social list-unstyled mt-2">

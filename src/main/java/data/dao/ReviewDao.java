@@ -14,7 +14,7 @@ public class ReviewDao {
 
 	DbConnect db = new DbConnect();
 	
-	//ë¦¬ë·° ê²Œì‹œê¸€ ì´ ê°¯ìˆ˜
+	//¸®ºä °Ô½Ã±Û ÃÑ °¹¼ö
 	public int getTotalCount() {
 		int n = 0;
 		
@@ -40,7 +40,7 @@ public class ReviewDao {
 		return n;
 	}
 	
-	// í˜ì´ì§€ì—ì„œ í•„ìš”í•œ ë§Œí¼ë§Œ ë¦¬í„´ -í˜ì´ì§•
+	// ÆäÀÌÁö¿¡¼­ ÇÊ¿äÇÑ ¸¸Å­¸¸ ¸®ÅÏ -ÆäÀÌÂ¡
 	public List<ReviewDto> getReviewlist(int start, int perpage) {
 		
 		List<ReviewDto> list = new Vector<ReviewDto>();
@@ -79,7 +79,7 @@ public class ReviewDao {
 		return list;
 	}
 	
-	// ë¦¬ë·° insert
+	// ¸®ºä insert
 	public void insertReview(ReviewDto dto) {
 		Connection conn = db.getConnection();
 		PreparedStatement pstmt = null;
@@ -104,7 +104,7 @@ public class ReviewDao {
 		}
 	}
 	
-	// ë°©ê¸ˆ ì¶”ê°€ëœ ìµœì¢… ì‹œí€€ìŠ¤ num ê°’ ë¦¬í„´
+	// ¹æ±İ Ãß°¡µÈ ÃÖÁ¾ ½ÃÄö½º num °ª ¸®ÅÏ
 	public String getMaxNum() {
 		ReviewDto dto = new ReviewDto();
 		Connection conn = db.getConnection();
@@ -130,7 +130,7 @@ public class ReviewDao {
 		return num;
 	}
 	
-	// ê²Œì‹œê¸€ ë²ˆí˜¸ì— ëŒ€í•œ ë°ì´í„° ê°€ì ¸ì˜¤ê¸°
+	// °Ô½Ã±Û ¹øÈ£¿¡ ´ëÇÑ µ¥ÀÌÅÍ °¡Á®¿À±â
 	public ReviewDto getReviewData(String num) {
 		
 		ReviewDto dto = new ReviewDto();
@@ -164,7 +164,7 @@ public class ReviewDao {
 		return dto;
 	}
 	
-	// ì¡°íšŒìˆ˜ ì¦ê°€
+	// Á¶È¸¼ö Áõ°¡
 	public void updateReadcount(String num) {
 		Connection conn = db.getConnection();
 		PreparedStatement pstmt = null;
@@ -185,7 +185,7 @@ public class ReviewDao {
 		}
 	}
 	
-	// ë¦¬ë·° ê²Œì‹œê¸€ ìˆ˜ì •
+	// ¸®ºä °Ô½Ã±Û ¼öÁ¤
 	public void updateReview(ReviewDto dto) {
 		Connection conn = db.getConnection();
 		PreparedStatement pstmt = null;
@@ -209,7 +209,7 @@ public class ReviewDao {
 		}
 	}
 	
-	// ë¦¬ë·° ê²Œì‹œê¸€ ì‚­ì œ
+	// ¸®ºä °Ô½Ã±Û »èÁ¦
 	public void reviewdel(String num) {
 		Connection conn = db.getConnection();
 		PreparedStatement pstmt = null;
@@ -231,7 +231,7 @@ public class ReviewDao {
 		
 	}
 	
-	// ì¶”ì²œìˆ˜ ì¦ê°€
+	// ÃßÃµ¼ö Áõ°¡
 	public void updateChu(String num) {
 		Connection conn = db.getConnection();
 		PreparedStatement pstmt = null;
@@ -251,7 +251,7 @@ public class ReviewDao {
 		}
 	}
 	
-	// ì´ì „ê¸€ ë°ì´í„° ë°˜í™˜
+	// ÀÌÀü±Û µ¥ÀÌÅÍ ¹İÈ¯
 	public ReviewDto getReviewPre(String num) {
 		
 		ReviewDto dto = new ReviewDto();
@@ -285,7 +285,7 @@ public class ReviewDao {
 		return dto;
 	}
 	
-	// ë‹¤ìŒê¸€ ë°ì´í„° ë°˜í™˜
+	// ´ÙÀ½±Û µ¥ÀÌÅÍ ¹İÈ¯
 	public ReviewDto getReviewNext(String num) {
 		
 		ReviewDto dto = new ReviewDto();
@@ -319,7 +319,7 @@ public class ReviewDao {
 		return dto;
 	}
 	
-	// ë¦¬ë·° ì „ì²´ ë°ì´í„° ë°˜í™˜ (í•´ë¯¼ ì¶”ê°€)
+	// ¸®ºä ÀüÃ¼ µ¥ÀÌÅÍ ¹İÈ¯ (ÇØ¹Î Ãß°¡)
 	public List<ReviewDto> getTotal() {
 		      
 		List<ReviewDto> list = new Vector<ReviewDto>();
@@ -356,10 +356,10 @@ public class ReviewDao {
 		return list;
 	}
 	
-	// í…ŒìŠ¤íŠ¸
+	// Å×½ºÆ®
 	public ArrayList<ReviewDto> getlist(String sDivide, String search, int pageNumber) {
 	//public ArrayList<ReviewDto> getlist(String sDivide, String searchType, String search, int pageNumber) {
-	//	if(sDivide.equals("ì „ì²´")) {
+	//	if(sDivide.equals("ÀüÃ¼")) {
 	//		sDivide = "";
 	//	}
 		ArrayList<ReviewDto> reviewList = null;
@@ -370,9 +370,9 @@ public class ReviewDao {
 		ResultSet rs = null;
 		
 		try {
-			if(sDivide.equals("ì œëª©")) {
+			if(sDivide.equals("Á¦¸ñ")) {
 				sql = "select * from review where subject like ? order by num desc limit "+pageNumber*10+", "+pageNumber*10+11;
-			} else if (sDivide.equals("ë‚´ìš©")) {
+			} else if (sDivide.equals("³»¿ë")) {
 				sql = "select * from review where content like ? order by num desc limit "+pageNumber*10+", "+pageNumber*10+11;
 			}
 			

@@ -180,7 +180,7 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월dd일 HH:mm z");
 									</p>
 									<div class="d-flex align-items-center">
 										<div class="user-img"
-											style="background-image: url(images/person_1.jpg)"></div>
+											style="background-image: url(images/profile.PNG)"></div>
 										<div class="pl-3">
 											<p class="name"><%=dto.getName() %></p>
 											<span class="position"><%=dto.getCar() %></span>

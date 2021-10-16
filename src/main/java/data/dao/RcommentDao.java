@@ -56,6 +56,7 @@ public class RcommentDao {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				RcommentDto dto = new RcommentDto();
+				dto.setIdx(rs.getString("idx"));
 				dto.setNum(rs.getString("num"));
 				dto.setEmail(rs.getString("email"));
 				dto.setName(rs.getString("name"));
