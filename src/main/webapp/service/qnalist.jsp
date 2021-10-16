@@ -10,8 +10,6 @@
 <html>
 <head>
 <meta charset="UTF-8 ">
-
-
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <title>CUSTOMERSERVICE</title>

@@ -1,3 +1,7 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="data.dto.EventDto"%>
+<%@page import="java.util.List"%>
+<%@page import="data.dao.EventDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -27,28 +31,44 @@
 <link rel="stylesheet" href="css/flaticon.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
+<%
+
+EventDao edao = new EventDao();
+
+List<EventDto> elist = edao.List();
+
+SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월dd일 HH:mm z");
+
+
+
+%>
 <body>
-					<div class="sidebar-box ftco-animate">
-						<h3>Recent Blog</h3>
-						<div class="block-21 mb-4 d-flex">
-							<a class="blog-img mr-4"
-								style="background-image: url(images/image_1.jpg);"></a>
-							<div class="text">
-								<h3 class="heading">
-									<a href="#">Even the all-powerful Pointing has no control
-										about the blind texts</a>
-								</h3>
-								<div class="meta">
-									<div>
-										<a href="#"><span class="fa fa-calendar"></span> Apr. 18,
-											2020</a>
-									</div>
-									<div>
-										<a href="#"><span class="fa fa-comment"></span> 19</a>
-									</div>
-								</div>
-							</div>
-						</div>
+	<div class="sidebar-box ftco-animate">
+		<h3>Event</h3>
+		
+		<%
+		int n = 0;
+		for(EventDto edto:elist){
+			if(n>=2){break;}%>		
+		<div class="block-21 mb-4 d-flex">
+			<a class="blog-img mr-4"
+				style="background-image: url('/Team/save/<%=edto.getPhotoname()%>'),url('./images/image_4.jpg');"></a>
+			<div class="text">
+				<h3 class="heading">
+					<a href="#"><%=edto.getSubject()%></a>
+				</h3>
+				<div class="meta">
+					<div>
+						<a href="#"><span class="fa fa-calendar"></span> <%=sdf.format(edto.getWriteday())%></a>
+					</div>
+					<div>
+						<a href="#"><span class="fa fa-comment"></span> <%=edto.getReadcount()%></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%}
+		%>
 		<div class="container">
 		<div class="row justify-content-center" style="height: 500px;">
 			<form action="index.jsp?main=product/productform.jsp?go=searchaction.jsp" method="post"

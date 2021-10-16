@@ -86,14 +86,16 @@ List<ReservationDto> list = rdao.getList(name, pass);
 						<span>&nbsp;&nbsp;&nbsp;&nbsp;Date :</span><%=rdto.getWriteday() %><span id="tex2"></span>
 					</p>
 					<hr>
- <%} %>
+ <%}
+ 	if(list.size()>0){%>
+ 
 					<p class="d-flex total-price">
 						<span>예약이 완료되었습니다</span> <span> </span>
 					</p>
 				</div>
 		</div>
 	</div>
-
+<%} %>
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery-migrate-3.0.1.min.js"></script>

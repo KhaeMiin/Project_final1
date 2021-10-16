@@ -311,25 +311,27 @@ color: red;
 			let num = <%=dto.getNum()%>;
 			let currentPage = <%=currentPage%>;
 			let perPage = <%=perPage%>
-			$.ajax({
-				type : "post",
-				url : "service/deleteAction.jsp",
-				data: {
-					"num": num,
-					"currentPage":currentPage,
-					"perPage" : perPage
-					
-				},
-				success : function() {
-					alert("삭제완료")
-					location.href = "index.jsp?main=service/qnalist.jsp?currentPage=<%=currentPage%>&perPage=<%=perPage%>&keyField=<%=keyField%>&keyWord=<%=keyWord%>";
-					
-				},
-				error:function(request,status,error){
-				      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-			    }
-			});
-			
+			let cancel = confirm("삭제하시겠습니까?");
+			if(cancel){
+				$.ajax({
+					type : "post",
+					url : "service/deleteAction.jsp",
+					data: {
+						"num": num,
+						"currentPage":currentPage,
+						"perPage" : perPage
+						
+					},
+					success : function() {
+						alert("삭제완료")
+						location.href = "index.jsp?main=service/qnalist.jsp?currentPage=<%=currentPage%>&perPage=<%=perPage%>&keyField=<%=keyField%>&keyWord=<%=keyWord%>";
+						
+					},
+					error:function(request,status,error){
+					      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				    }
+				});
+			}
 		});
 		
 		//파일 다운로드
