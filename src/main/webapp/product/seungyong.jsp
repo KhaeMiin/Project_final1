@@ -86,10 +86,10 @@ for(ProductDto dto:list){
 					<p class="meta-prod d-flex">
 						<a href="#"
 							class="d-flex align-items-center justify-content-center"><span
-							class="flaticon-shopping-bag"></span></a> <a href="../index.jsp?main=product/productform.jsp?go=seungyongdetail.jsp"
+							class="flaticon-shopping-bag"></span></a> <a href="../index.jsp?main=product/productform.jsp?go=detail.jsp"
 							class="d-flex align-items-center justify-content-center"><span
 							class="flaticon-heart">
-							</span></a> <a href="index.jsp?main=product/seungyongdetail.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>&keydsds=list"
+							</span></a> <a href="index.jsp?main=product/detail.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>&keydsds=list"
 							class="d-flex align-items-center justify-content-center"><span
 							class="flaticon-visibility"></span></a>
 					</a>

@@ -91,20 +91,27 @@
 		}).open();
 	});
 	
+  	//중복 닉네임 체크
 	$("#sameNameBtn").click(function () {
 		window.open("login/sameNameCheck2.jsp", "" , "width = 480px, height = 150px, left = 700px, top = 100px");
 	})
+	
+	//중복 비밀번호 체크
 	$("#samePwBtn").click(function () {
 		window.open("login/samePwCheck3.jsp", "" , "width = 480px, height = 150px, left = 700px, top = 100px");
 	})
 	
+	//비밀번호 변경
 	$("#updatePwBtn").click(function () {
 		location.href = "index.jsp?main=login/updatePwForm.jsp";
 	})
+	
+	//회원탈퇴
 	$("#deleteMemberBtn").click(function () {
 		
 		location.href = "index.jsp?main=login/deleteMemberForm.jsp";
 	})
+	//수정전 검사항목 체크
 	function check(info) {
 		
 		let check = true; 

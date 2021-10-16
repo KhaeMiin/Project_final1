@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="java.io.File"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
 <%@page import="data.dto.ServiceDto"%>
@@ -10,6 +11,7 @@
 	String realPath = getServletContext().getRealPath("/files");
 	/* System.out.println(realPath);  */
 	
+	//사이즈 제한
 	int uploadSize = 1024*1024*4;//4mb
 	MultipartRequest multi = null;
 	
@@ -23,6 +25,13 @@
 		if(multi.getParameter("perPage")!=null){
 			perPage = Integer.parseInt(multi.getParameter("perPage"));
 		}
+		//키워드값
+		String keyField = multi.getParameter("keyField");
+		String keyWord = multi.getParameter("keyWord");
+		keyWord = URLEncoder.encode(keyWord,"UTF-8");
+		System.out.println("updatAction.jsp파일");
+		System.out.println(keyField +"키필드입니다.");
+		System.out.println(keyWord +"키워드입니다.");
 		//최종 저장할 파일
 		String file = "";
 		//기존 파일이름
@@ -34,9 +43,9 @@
 			file = currentFile;
 		}else{
 			file = newFile;
-			//real path
+			//실제경로
 			File removeFile = new File(realPath+"\\"+currentFile);
-			//delete current file
+			//현제파일 삭제
 			removeFile.delete();
 		}
 		
@@ -79,11 +88,10 @@
 		dto.setFile(file);
 		dto.setNum(num);
 		
-		//update
+		//수정
 		dao.updateDetailInfo(dto); 
 		//방명록으로 이동 (수정했던 페이지로 이동)
-		String path = "../index.jsp?main=service/qnalist.jsp?currentPage="+currentPage+"&perPage="+perPage;
-		response.sendRedirect(path);
+		response.sendRedirect("../index.jsp?main=service/qnalist.jsp?currentPage="+currentPage+"&perPage="+perPage+"&keyField="+keyField+"&keyWord="+keyWord);
 	} catch (Exception e){
 		System.out.println("업로드오류:" + e.getMessage());
 	}

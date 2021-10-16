@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="data.dto.ServiceDto"%>
 <%@page import="data.dao.ServiceDao"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -11,6 +12,7 @@
 	String realPath = getServletContext().getRealPath("/files");
 	System.out.println(realPath); 
 	
+	//사이즈 제한걸기
 	int uploadSize = 1024*1024*4;//1mb *4
 	MultipartRequest multi = null;
 	
@@ -18,11 +20,20 @@
 		multi = new MultipartRequest(request, realPath, uploadSize, "utf-8", new DefaultFileRenamePolicy());
 		//(주의)request 가 아닌 multi 변수로 모든 폼데이터를 읽어야한다
 		String currentPage=multi.getParameter("currentPage");
-		//perpage
+		//페이지값
 		int perPage = 10;
 		if(multi.getParameter("perPage")!=null){
 			perPage = Integer.parseInt(multi.getParameter("perPage"));
 		}
+		//키워드값
+		String keyField = multi.getParameter("keyField");
+		String keyWord = multi.getParameter("keyWord");
+		keyWord = URLEncoder.encode(keyWord,"UTF-8");
+		
+		System.out.println("replyAction.jsp파일");
+		System.out.println(keyField +"키필드입니다.");
+		System.out.println(keyWord +"키워드입니다."); 	
+		
 		String category = multi.getParameter("category");
 		String writer = multi.getParameter("writer");
 		String open = multi.getParameter("open");
@@ -78,12 +89,13 @@
 		//dao 선언
 		ServiceDao dao = new ServiceDao();
 		
-		
-		//insert reply
+		//이전답글의 위치수정
 		dao.replyUpBoard(ref, pos);
+		//답글추가
 		dao.replyBoard(dto);
+		
 		//방명록으로 이동
-		response.sendRedirect("../index.jsp?main=service/qnalist.jsp?currentPage="+currentPage+"&perPage="+perPage);
+		response.sendRedirect("../index.jsp?main=service/qnalist.jsp?currentPage="+currentPage+"&perPage="+perPage+"&keyField="+keyField+"&keyWord="+keyWord);
 	} catch (Exception e){
 		System.out.println("업로드오류:" + e.getMessage());
 	}

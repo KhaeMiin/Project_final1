@@ -31,8 +31,6 @@
  
  
     try{
-         
- 
         // 파일을 읽어 스트림에 담기
         try{
             file = new File(savePath, filename);
@@ -40,10 +38,6 @@
         }catch(FileNotFoundException fe){
             skip = true;
         }
- 
- 
- 
-         
         client = request.getHeader("User-Agent");
  
         // 파일 다운로드 헤더 지정
@@ -53,8 +47,6 @@
  
  
         if(!skip){
- 
-             
             // IE
             if(client.indexOf("MSIE") != -1){
                 response.setHeader ("Content-Disposition", "attachment; filename="+new String(orgfilename.getBytes("KSC5601"),"ISO8859_1"));

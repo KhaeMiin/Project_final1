@@ -51,7 +51,7 @@ public class LoginDao {
 	public boolean userInfoCheck(int number, String data) {
 		//찾고싶은 데이터의 종류  1 name, 2 email, 3 pw
 		
-		//그 데이터에 맞는 값을 입력
+		//그 데이터에 맞는 값을 입력 data
 		
 		boolean sameUserInfo =false;
 		Connection conn = db.getConnection();
@@ -91,8 +91,7 @@ public class LoginDao {
 	public LoginDto getUserInfo(int number, String data) {
 		//찾고싶은 데이터의 종류  1 name, 2 email, 3 pw
 		
-		//그 데이터에 맞는 값을 입력
-		
+		//그 데이터에 맞는 값을 입력 data
 		Connection conn = db.getConnection();
 		LoginDto dto = null;
 		PreparedStatement ps = null;
@@ -170,7 +169,7 @@ public class LoginDao {
 	
 	//UPDATE
 	
-	//비밀번호변경
+	//회원정보 수정
 	public boolean updateMember(String postcode, String addr1, String addr2, String mobile1, String mobile2, String mobile3,String name, String email ) {
 		boolean check = false;
 		Connection conn = db.getConnection();

@@ -1,3 +1,5 @@
+<%@page import="data.dto.LoginDto"%>
+<%@page import="data.dao.LoginDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,11 +7,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;400&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <%
 	//프로젝트의 경로
 	String root=request.getContextPath();
+
+	//로그인한 아이디
+	//아이디,닉네임 얻기
+	String myid = (String)session.getAttribute("myid");
+	LoginDao Ldao = new LoginDao();
+	LoginDto Ldto = Ldao.getUserInfo(2, myid);
+	String name = Ldto.getName();
+		
+	//로그인 상태 확인후 입력폼 나타내기
+	String loginok = (String)session.getAttribute("loginok");
 
 %>
 
@@ -20,51 +34,47 @@
 <script type="text/javascript" src="<%=root%>/se2/photo_uploader/plugin/hp_SE2M_AttachQuickPhoto.js"
 	charset="utf-8"></script>	
 </head>
-<body>
+<body style="font-family:'Noto Sans KR', sans-serif;">
     <section style="height: 100px;background-image: url('images/bg_2.jpg');"  data-stellar-background-ratio="0.5">
     </section>
+    
+    
+<form class="f" action="event/eventaction.jsp" method="post" style="margin-top: 30px; margin-bottom:30px;">
+	
+<div class="container">
 
-<form action="event/eventaction.jsp" method="post">
-
-	<table class="table table-bordered" style="font-family:'Noto Sans KR', sans-serif; width: 800px;margin-left: 100px;" >
-		<tr>
-			<th bgcolor="orange" width="100">작성자</th>
-			<td>
-				<input type="text" name="writer" class="form-control"
-					required="required" style="width: 130px;">
-			</td>
-		</tr>
-		<tr>
-			<th bgcolor="orange" width="100">제  목</th>
-			<td>
-				<input type="text" name="subject" class="form-control"
-					required="required" style="width: 500px;">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<textarea name="content" id="content"		
-					required="required"			
-					style="width: 100%;height: 300px;display: none;">
-				</textarea>
-				<input type="hidden" id="ct" name="ct">
-				<input type="hidden" id="img" name="img">
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<button type="button" class="btn btn-warning"
-					style="width: 120px;" id="btnSave"
-					onclick="submitContents(this)">DB저장</button>
+  <h2 style="color :gray;">이벤트 글 작성</h2><br>  
+  <input type="hidden" id="writer" name="writer" value="<%= name%>">   
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+      	<td><input type="text" class="form-control" placeholder="제목" id="subject" name="subject" required="required" maxlength="40"></td>
+      </tr>
+      <tr>
+      	<td>
+      	<textarea class="form-control" name="content" id="content" maxlength="2500" required="required"
+				style="height: 400px; display: none;"
+				placeholder="글 내용을 작성하세요">
+		</textarea>
+		<input type="hidden" id="ct" name="ct">
+		<input type="hidden" id="img" name="img">
+		</td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-primary pull-right"
+	style="width: 120px;" id="btnSave"
+	onclick="submitContents(this)">입력</button>
 				
-				<button type="button" class="btn btn-warning"
-					style="width: 120px;"
-					onclick="location.href='index.jsp?main=event/eventlist.jsp'">목록</button>
-			</td>
-		</tr>
-		
-	</table>   
+	<button type="button" class="btn btn-primary pull-right"
+	style="width: 120px;"
+	onclick="location.href='index.jsp?main=event/eventlist.jsp'">목록</button>
+</div>
+<div style="margin-top: 100px;">
+</div>
 </form>
+
+
 
 <!-- 스마트게시판에 대한 스크립트 코드 넣기 -->
 <script type="text/javascript">
@@ -85,10 +95,26 @@ nhn.husky.EZCreator.createInIFrame({
 //‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
 
 function submitContents(elClickedObj) {
+	oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
 
-    // 에디터의 내용이 textarea에 적용된다.
+	var subject = document.getElementById("subject");
+	//var content = document.getElementById("content");
+	var content = document.getElementById("content").value;;
 
-    oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", [ ]);
+	if(subject.value==""){
+		alert("제목을 입력하세요.");
+		subject.focus();
+		return false;
+	};
+	
+	if(content == "" || content == null || content == '&nbsp;' ||
+	content == '<br>' || content == '<br/>' || content == '<p>&nbsp;</p>'){
+		alert("본문을 작성해주세요.");
+		content.focus();
+		return; };
+
+
+
     
     /**
      * argBody 안의 내용 중 지정 문자열 삭제
@@ -110,7 +136,7 @@ function submitContents(elClickedObj) {
     };
 	
     var varContent = oEditors.getById["content"].getIR();
-	alert(varContent);
+//	alert(varContent);
     varContent = removeStyleAndImage(varContent, '<pre', ';">', '</pre>');    // 스마트에디터 내부의 스타일 제거
     varContent = removeStyleAndImage(varContent, '<span', ';">', '</span>');  // 스마트에디터 내부의 스타일 제거
     varContent = removeStyleAndImage(varContent, '<img src=', '">', '');      // 스마트에디터 내부의 이미지 제거

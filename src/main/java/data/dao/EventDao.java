@@ -103,6 +103,41 @@ public class EventDao {
 		}
 		return list;
 	}
+	
+	//리스트 전체 출력
+	public List<EventDto> List()
+	{
+		List<EventDto> list=new Vector<EventDto>();
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql="select * from event order by num desc";
+
+		try {
+			pstmt=conn.prepareStatement(sql);
+			//바인딩
+			rs=pstmt.executeQuery();
+			while(rs.next())
+			{
+				EventDto dto=new EventDto();
+				dto.setNum(rs.getString("num"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
+				dto.setPhotoname(rs.getString("photoname"));
+				dto.setReadcount(rs.getInt("readcount"));
+				dto.setWriteday(rs.getTimestamp("writeday"));
+				//list 에 추가
+				list.add(dto);
+			}			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(rs,pstmt, conn);
+		}
+		return list;
+	}
 
 
 	//num 에 해당하는 dto 반환
@@ -185,5 +220,126 @@ public class EventDao {
 		}
 		return num;
 	}
+	
+	//수정하기
+		public void	updateEvent(EventDto dto)
+		{
+			Connection conn = db.getConnection();
+			PreparedStatement pstmt = null;
+
+			String sql = "update event set subject=?, content=?, photoname=? where num=?";
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				//바인딩
+				pstmt.setString(1,dto.getSubject());
+				pstmt.setString(2,dto.getContent());
+				pstmt.setString(3,dto.getPhotoname());
+				pstmt.setString(4,dto.getNum());
+
+				//실행
+				pstmt.execute();
+
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				db.dbClose(pstmt, conn);
+			}
+
+		}
+	//	SELECT * FROM event WHERE num > 3 ORDER BY num ASC LIMIT 1;  
+
+	//	SELECT * FROM event WHERE num < 23 ORDER BY num DESC LIMIT 1;
+
+		//삭제
+		public void	deleteEvent(String num)
+		{
+			Connection conn = db.getConnection();
+			PreparedStatement pstmt = null;
+
+			String sql = "delete from event where num=?";
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+				//바인딩
+				pstmt.setString(1,num);
+				//실행
+				pstmt.execute();
+
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}finally {
+				db.dbClose(pstmt, conn);
+			}
+
+		}
+		
+		//이전글
+		public EventDto getPre(String num)
+		{
+			EventDto dto=new EventDto();
+			Connection conn=db.getConnection();
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="SELECT * FROM event WHERE num < ? ORDER BY num DESC LIMIT 1";
+
+			try {
+				pstmt=conn.prepareStatement(sql);
+				//바인딩
+				pstmt.setString(1, num);
+				rs=pstmt.executeQuery();
+				if(rs.next())
+				{				
+					dto.setNum(rs.getString("num"));
+					dto.setWriter(rs.getString("writer"));
+					dto.setSubject(rs.getString("subject"));
+					dto.setContent(rs.getString("content"));
+					dto.setPhotoname(rs.getString("photoname"));
+					dto.setReadcount(rs.getInt("readcount"));
+					dto.setWriteday(rs.getTimestamp("writeday"));			
+				}			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(rs,pstmt, conn);
+			}
+			return dto;
+		}
+		
+		//다음글
+		public EventDto getNext(String num)
+		{
+			EventDto dto=new EventDto();
+			Connection conn=db.getConnection();
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql="SELECT * FROM event WHERE num > ? ORDER BY num ASC LIMIT 1"; 
+
+			try {
+				pstmt=conn.prepareStatement(sql);
+				//바인딩
+				pstmt.setString(1, num);
+				rs=pstmt.executeQuery();
+				if(rs.next())
+				{				
+					dto.setNum(rs.getString("num"));
+					dto.setWriter(rs.getString("writer"));
+					dto.setSubject(rs.getString("subject"));
+					dto.setContent(rs.getString("content"));
+					dto.setPhotoname(rs.getString("photoname"));
+					dto.setReadcount(rs.getInt("readcount"));
+					dto.setWriteday(rs.getTimestamp("writeday"));			
+				}			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				db.dbClose(rs,pstmt, conn);
+			}
+			return dto;
+		}
+	
 }
 

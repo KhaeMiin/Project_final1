@@ -22,7 +22,7 @@ body{
     color: #37434c;
     font-family: 'Nanum Myeongjo', serif;
     font-weight: 700;
-    background-color: rgba(5,20,31,0.03)
+    background-color: white;
 }
 
 .ast{
@@ -44,7 +44,6 @@ body{
 .inner{
     width:1100px;
     margin: 0 auto;
-    margin-top: 120px;
     margin-bottom: 30px;
     height: 880px;
     position: relative;
@@ -57,7 +56,6 @@ body{
     position: absolute;
     top: 60px;
     left: 29px;
-    /* border: 1px solid rgb(118, 118, 118); */
 }
 .inner .container form{
     width: 982px;
@@ -137,14 +135,14 @@ body{
     text-align: center;
     margin-left: 380px;
     margin-bottom: 50px;
-    color: #37434c;
+    color: #a23f25;
     font-family: 'Nanum Myeongjo', serif;
     font-weight: bold;
 }
 </style>
 </head>
 <%
-	//perpage얻기
+	//페이지값
 	System.out.println(request.getParameter("perPage")+"per페이지");
 	int perPage = 10;
 	if(request.getParameter("perPage")!=null){
@@ -153,6 +151,14 @@ body{
 	//페이지 번호 읽기
 	String currentPage = request.getParameter("currentPage");
 	System.out.println(currentPage + "현제페이지");
+	
+	//키워드값
+	String keyField = request.getParameter("keyField");
+	String keyWord = request.getParameter("keyWord");
+	System.out.println("updateqna.jsp파일");
+	System.out.println(keyField +"키필드입니다.");
+	System.out.println(keyWord +"키워드입니다.");
+	
 	//숫자얻기
 	String num = request.getParameter("num");
 	ServiceDao dao = new ServiceDao();
@@ -166,6 +172,8 @@ body{
            	 	<input type = "hidden" name = "num" value=<%=num%>>
 				<input type = "hidden" name = "currentPage" value=<%=currentPage%>>
 				<input type = "hidden" name = "perPage" value=<%=perPage%>>
+			    <input type="hidden" name="keyField" value="<%=keyField%>">
+			    <input type="hidden" name="keyWord" value="<%=keyWord%>">
                 &nbsp;<span><span class="ast"> * </span>표시는 필수 입력사항입니다.</span>
                 <table class="qnaFrm">
                     <tr>
@@ -241,6 +249,7 @@ body{
         </div>
     </div>
 	<script>
+		//제목에 포커스
 		$(".subject").focus();
 	</script>
 </body>

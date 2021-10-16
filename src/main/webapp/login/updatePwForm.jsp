@@ -60,6 +60,7 @@
 	</div>
 	<script>
 		$("#getPw2").focus();
+		//비밀번호 변경
 		$("#updatePwBtn").click(function() {
 			let pw1 = $("#updatePw").val()
 			let pw2 = $("#updatePwCheck").val()
@@ -68,8 +69,8 @@
 				return;
 			}
 			
+			//비밀번호 검사 정규식
 			var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
-
 			var pw = $("#updatePw").val();
 
 			if(false === reg.test(pw)) {
@@ -85,7 +86,6 @@
 				$("#updatePwCheck").val("")
 				return;
 			}else{
-			/* 	location.href = '../index.jsp?main=login/updatePwAction.jsp' */
 					$.ajax({
 						type: "post",
 						url: "login/updatePwAction.jsp",

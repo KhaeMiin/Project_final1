@@ -22,7 +22,6 @@
 	System.out.println(login);
 	
 	if(login.equals("yes")){
-		
 		%>
 		<script type="text/javascript">
 		
@@ -34,9 +33,7 @@
 		
 	}else{
 		System.out.println(login);
-		
 	}
-
 %>
 
 <body>
@@ -60,8 +57,6 @@
 			%>
 	              <input type="email" name="confirmEmail" class="getEmail" placeholder="인증 이메일 주소" required = "required">
 	              <button type="submit"  class="getEmailBtn baseBtn" >중복확인</button>
-	             
-	          
 			<%} else {
 					
 				//email 읽기

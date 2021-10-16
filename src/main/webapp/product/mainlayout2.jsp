@@ -51,15 +51,18 @@
 						</div>
 		<div class="container">
 		<div class="row justify-content-center" style="height: 500px;">
-			<form action="product/searchaction.jsp" method="post"
+			<form action="index.jsp?main=product/productform.jsp?go=searchaction.jsp" method="post"
 				class="billing-form" onsubmit="return check(this)">
-				<input type="password" placeholder="검색할 차종,모델명을 입력하세요" name="subject" style="width: 270px;"
+				<input type="text" placeholder="검색할 차종,모델명을 입력하세요" name="search" style="width: 270px;"
 					class="inputInfo" id="pw" required><br>
 					<div style="height: 20px;"></div>
-				<p>
+ 				<p>
 					<button type="submit" id="btn1" class="btn btn-primary py-3 px-4" style="width: 270px; height: 50px; text-align: center;">
 						검색</button>
-				</p>
+				</p> 
+<!-- 				<p>
+					<a href="index.jsp?main=product/productform.jsp?go=searchaction.jsp" class="btn btn-primary py-3 px-4">Reservation Confirm</a>
+				</p> -->
 			</form>
 		</div>
 	</div>

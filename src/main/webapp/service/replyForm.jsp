@@ -22,7 +22,7 @@ body{
     color: #37434c;
     font-family: 'Nanum Myeongjo', serif;
     font-weight: 700;
-    background-color: rgba(5,20,31,0.03)
+    background-color: white;
     
 }
 
@@ -45,7 +45,6 @@ body{
 .inner{
     width:1100px;
     margin: 0 auto;
-    margin-top: 120px;
     margin-bottom: 80px;
     height: 740px;
     position: relative;
@@ -138,26 +137,34 @@ body{
     text-align: center;
     margin-left: 380px;
     margin-bottom: 50px;
-    color: #37434c;
+    color: #a23f25;
     font-family: 'Nanum Myeongjo', serif;
     font-weight: bold;
 }
 </style>
 </head>
 <%
+	//로그인정보 얻기
 	String myid = (String)session.getAttribute("myid");
 	String num = request.getParameter("num");
 	String currentPage=request.getParameter("currentPage");
-	//perpage
+	//페이지값
 	int perPage = 10;
 	if(request.getParameter("perPage")!=null){
 		perPage = Integer.parseInt(request.getParameter("perPage"));
 	}
+	//키워드값
+	String keyField = request.getParameter("keyField");
+	String keyWord = request.getParameter("keyWord");
+	System.out.println("replyform.jsp파일");
+	System.out.println(keyField +"키필드입니다.");
+	System.out.println(keyWord +"키워드입니다."); 
+	
 	LoginDao loginDao = new LoginDao();
 	LoginDto loginDto = loginDao.getUserInfo(2, myid);
 	ServiceDao dao = new ServiceDao();
 	ServiceDto dto = dao.getData(num);
-	System.out.println(num + " num출력");
+	System.out.println(num + " 디테일로 부터 받아온 숫자입니다");
 	
 %>
 <body>
@@ -216,6 +223,9 @@ body{
 				 <input type="hidden" name="mobile" value="<%=dto.getMobile()%>">
 				 <input type="hidden" name="currentPage" value="<%=currentPage%>">
 				 <input type="hidden" name="perPage" value="<%=perPage%>">
+				 <input type="hidden" name="keyField" value="<%=keyField%>">
+				 <input type="hidden" name="keyWord" value="<%=keyWord%>">
+				 
                 <div class="btnContainer">
                     <button type = "submit" class="baseBtn write">작성</button>
                     <button type = "button"  class="baseBtn back"  onclick="location.href = 'index.jsp?main=service/qnalist.jsp?currentPage=<%=currentPage%>&perPage=<%=perPage%>'">목록</button>
@@ -226,6 +236,7 @@ body{
     </div>
     
 	<script>
+		//제목에 자동 포커스
 		$(".subject").focus();
 		
 	</script>

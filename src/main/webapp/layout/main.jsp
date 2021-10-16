@@ -1,3 +1,6 @@
+<%@page import="data.dao.EventDao"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="data.dto.EventDto"%>
 <%@page import="data.dto.ProductDto"%>
 <%@page import="data.dao.ProductDao"%>
 <%@page import="java.util.List"%>
@@ -20,6 +23,13 @@ List<ReviewDto> list = dao.getTotal();
 ProductDao dao2= new ProductDao();
 
 List<ProductDto> list2 = dao2.getTotal();
+
+EventDao edao = new EventDao();
+
+List<EventDto> elist = edao.List();
+
+SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월dd일 HH:mm z");
+
 %>
 
 <body>
@@ -197,89 +207,52 @@ List<ProductDto> list2 = dao2.getTotal();
 				<div class="col-md-7 heading-section text-center ftco-animate">
 					<span class="subheading">Event</span>
 					<h2>시승 이벤트</h2>
-				</div>
+			</div>
 			</div>
 			<div class="row d-flex">
+			
+			<%
+			int n = 0;
+			for(EventDto edto: elist){
+				if(n>=4){break;}
+			%>
 				<div class="col-lg-6 d-flex align-items-stretch ftco-animate">
 					<div class="blog-entry d-flex">
 						<a href="blog-single.jsp" class="block-20 img"
-							style="background-image: url('images/event1.jpg');"> </a>
+							style="background-image: url('/Team/save/<%=edto.getPhotoname()%>'),url('./images/image_4.jpg');"> </a>
 						<div class="text p-4 bg-light">
 							<div class="meta">
 								<p>
-									<span class="fa fa-calendar"></span> 23 April 2020
+									<span class="fa fa-calendar"></span> <%=sdf.format(edto.getWriteday())%>
 								</p>
 							</div>
 							<h3 class="heading mb-3">
-								<a href="#">k3 시승 이벤트</a>
+								<a href="index.jsp?main=event/eventdetail.jsp?num=<%=edto.getNum()%>">
+								
+							<%if(edto.getSubject().length() >= 20){%>
+							<%=edto.getSubject().substring(0, 20)%>
+							<% }else{%>
+							<%=edto.getSubject()%>
+							<%} %>
+								
+								</a>
 							</h3>
-							<p>기아의 기술을 누릴 인원 모집합니다.</p>
-							<a href="#" class="btn-custom">Continue <span
+							<p>
+							<%if(edto.getContent().length() >= 70){%>
+								<%=edto.getContent().substring(0, 70)%>
+							<% }else{%>
+							<%=edto.getContent()%>
+							<%} %>
+							</p>
+							<a href="index.jsp?main=event/eventlist.jsp" class="btn-custom">Continue <span
 								class="fa fa-long-arrow-right"></span></a>
 
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-6 d-flex align-items-stretch ftco-animate">
-					<div class="blog-entry d-flex">
-						<a href="blog-single.jsp" class="block-20 img"
-							style="background-image: url('images/event2.jpg');"> </a>
-						<div class="text p-4 bg-light">
-							<div class="meta">
-								<p>
-									<span class="fa fa-calendar"></span> 23 April 2020
-								</p>
-							</div>
-							<h3 class="heading mb-3">
-								<a href="#">k5 시승 이벤트</a>
-							</h3>
-							<p>k5의 부드러운 주행<br> 여러분의 많은 관심 부탁드립니다.</p>
-							<a href="#" class="btn-custom">Continue <span
-								class="fa fa-long-arrow-right"></span></a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6 d-flex align-items-stretch ftco-animate">
-					<div class="blog-entry d-flex">
-						<a href="blog-single.jsp" class="block-20 img"
-							style="background-image: url('images/event3.jpg');"> </a>
-						<div class="text p-4 bg-light">
-							<div class="meta">
-								<p>
-									<span class="fa fa-calendar"></span> 23 April 2020
-								</p>
-							</div>
-							<h3 class="heading mb-3">
-								<a href="#">k8 시승 이벤트</a>
-							</h3>
-							<p>미래에서 온 자동차 k8<br>현실에서 느낄수 있는 찬스입니다</p>
-							<a href="#" class="btn-custom">Continue <span
-								class="fa fa-long-arrow-right"></span></a>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6 d-flex align-items-stretch ftco-animate">
-					<div class="blog-entry d-flex">
-						<a href="blog-single.jsp" class="block-20 img"
-							style="background-image: url('images/event4.jpg');"> </a>
-						<div class="text p-4 bg-light">
-							<div class="meta">
-								<p>
-									<span class="fa fa-calendar"></span> 23 April 2020
-								</p>
-							</div>
-							<h3 class="heading mb-3">
-								<a href="#">제네시스 G80 시승 이벤트</a>
-							</h3>
-							<p>제네시스 기술의 집합체 G80<br>시승 모집합니다.</p>
-							<a href="#" class="btn-custom">Continue <span
-								class="fa fa-long-arrow-right"></span></a>
-
-						</div>
-					</div>
-				</div>
+			<%n++;} %>
+				
+				
 			</div>
 		</div>
 	</section>
