@@ -16,7 +16,19 @@
 <style type="text/css">
 div.commentlist {
 	width: 600px;
-	margin-bottom: 20px;
+	margin-bottom: 30px;
+}
+div.icon {
+	margin-left: 10px;
+	margin-bottom: 10px;
+	width: 90px;
+}
+div.icon>img {
+	width: 30px;
+	height: 100%;
+}
+div>img,div>span:hover {
+	cursor: pointer;
 }
 </style>
 <script type="text/javascript">
@@ -30,11 +42,24 @@ $(function () {
 	$("span.cdel").click(function () {
 		let idx = $(this).attr("idx");
 		let tag = $(this);
-		alert(idx);
-		
+		//alert(idx);
+		// 삭제확인창
+		let cancel = confirm("댓글을 삭제하시겠습니까?");
+		if(cancel){
+			$.ajax({
+				type:"get",
+				dataType:"html",
+				url:"review/commentDel.jsp",
+				data:{"idx":idx},
+				success:function(){
+				//새로고침
+					location.reload();
+				}
+			});
+			
+		}
 		
 	});
-	
 });
 </script>
 </head>
@@ -71,19 +96,26 @@ $(function () {
 
 <!-- 댓글 리스트 -->
 <div class="icon">
-댓글
+	<img src="images/review_comment.png"><span style="margin-left:8px;">댓글</span>
+	<span><%= totalComment %></span>
 </div>
 <div class="commentlist">
 	<table table class="table table-bordered" style="width: 900px;">
 	<% 
+			if(totalComment==0){
+	%>
+		<tr style="height: 60px;">
+			<td style="padding-top: 20px;">
+				<span style="margin-left: 10px;">댓글이 없습니다</span>
+			</td>
+		</tr>
+	<% }else{
 		for(RcommentDto rdto:rlist){
 	%>
 		<tr>
 			<td align="left">
-			<% 
-			if(totalComment!=0){
-			%>
-				<span class="glyphicon glyphicon-user" style="font-size: 20px; font-size: 15px; margin-right: 8px;"></span>
+			<div style="margin-top: 8px;">
+				<span class="glyphicon glyphicon-user" style="font-size: 20px; font-size: 15px; margin-right: 8px; padding-left: 10px;"></span>
 				<% 
 					String rname = rdto.getName();
 				%>
@@ -91,27 +123,33 @@ $(function () {
 				<% // 후기글email=댓글email 경우 작성자 나오게
 					if(dto.getEmail().equals(rdto.getEmail())){
 				%>
-					<span style="color: red; font-size: 8pt;">작성자</span>
-					<% } %>
-				<span>
+					<span style="color: red; font-size: 8pt; margin-left: 8px;">작성자</span>
+					<% } %><br>
+			</div>
+				<span style="padding-left: 40px;">
+					<%= rdto.getContent().replace("\n", "<br>") %>
+				</span><br>
+				<span style=" margin-left: 10px; font-size: 8pt; color:gray; padding-left: 30px;">
 					<%= sdf.format(rdto.getWriteday()) %>
 				</span>
-					<% // 로그인이면서 로그인한email 과 같을 경우
-						if(login!=null && rdto.getEmail().equals(email)){
-					%>
-						<span class="glyphicon glyphicon-trash cdel" style="font-size: 12pt; cursor: pointer; margin-left: 600px; line-height: 50px;" idx="<%= rdto.getIdx() %>"></span>
-					<% } %>
-					<br>
-				<span>
-					<%= rdto.getContent().replace("\n", "<br>") %>
-				</span>
-			<% }else{ %>
-			<span>댓글이 없습니다</span>
-		<% } %>
+				<% // 로그인이면서 로그인한email=댓글작성자email or 관리자
+					if(login!=null && rdto.getEmail().equals(email) || email.equals("admin")){
+				%>
+				<span class="glyphicon glyphicon-trash cdel" style="font-size: 12pt; cursor: pointer; margin-left: 820px; line-height: 30px;" idx="<%= rdto.getIdx() %>"></span>
+				<% } %>
 			</td>
 		</tr>
-		<% } %>
+		<% } 
+		} %>
+			<%
+					// 입력폼은 로그인한 경우에만 보이게 하기
+				if(login!=null){
+			%>
+					<jsp:include page="XXcommentForm.jsp"/>
+			<% } %>
 	</table>
+	
+	
 </div>
 
 </body>

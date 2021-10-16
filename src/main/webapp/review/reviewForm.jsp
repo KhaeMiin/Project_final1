@@ -11,18 +11,21 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 
 <style type="text/css">
-	div.bg {
-		margin: 100px 150px;
-	}
-	th {
-		width: 150px;
-	}
-	th>b, h5>b {
-		color: red;
-	}
-	th {
-		font-size: 12pt;
-	}
+div.bg {
+	margin: 100px 150px;
+}
+
+th {
+	width: 150px;
+}
+
+th>b, h5>b {
+	color: red;
+}
+
+th {
+	font-size: 12pt;
+}
 </style>
 
 <%
@@ -41,7 +44,6 @@
 %>
 
 <script type="text/javascript">
-
 //취소확인창
 $(function () {
 	$("#reviewcancel").click(function () {
@@ -52,9 +54,7 @@ $(function () {
 	});
 	
 });
-
 </script>
-
 </head>
 
 <body>
@@ -67,8 +67,8 @@ $(function () {
 		<tr>
 			<th>시승모델&nbsp;<b>*</b></th>
 			<td colspan="3">
-				<select id="selcar" name="car" class="form-control" style="width: 200px;">
-					<option selected disabled>선택</option>
+				<select id="selcar" name="car" class="form-control" style="width: 200px;" required>
+					<option value="" selected disabled>선택</option>
 					<option value="차종1">차종1</option>
 					<option value="차종2">차종2</option>
 					<option value="차종3">차종3</option>

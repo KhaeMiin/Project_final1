@@ -4,9 +4,8 @@
 <%@page import="data.dto.ReviewDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<% 
-	// reviewform 액션
+<%
+// reviewform 액션
 	
 	request.setCharacterEncoding("utf-8");
 	
@@ -31,5 +30,4 @@
 	String num = dao.getMaxNum();
 	String path = "../index.jsp?main=review/reviewDetail.jsp?num="+num;
 	response.sendRedirect(path);
-
 %>

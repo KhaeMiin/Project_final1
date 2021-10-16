@@ -359,8 +359,23 @@ button.bt {
 				<td>
 					|&nbsp;<a href="index.jsp?main=event/eventupdateform.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>" 
 						style="color: black;"><span class='far fa-edit'></span>&nbsp;수정</a>
-					|&nbsp;<a href="event/eventdelete.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>" style="color: black;"><span class='far fa-file-excel'></span>&nbsp;삭제</a>
+					|&nbsp;<a href="" 
+					onclick="removeCheck()" style="color: black;" ><span class='far fa-file-excel'></span>&nbsp;삭제</a>
 				</td>
+<script type="text/javascript">
+function removeCheck() {
+
+	 if (confirm("정말 삭제하시겠습니까?") == true){    //확인
+
+		 location.href = "index.jsp?main=event/eventdelete.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>";
+
+	 }else{   //취소
+
+		return;
+	 }
+
+	}
+</script>
 				<%} %>
 			</td>
 		</tr>
@@ -418,6 +433,7 @@ button.bt {
 		<%}else{%>
 			<li>
 			<a href="index.jsp?main=event/eventlist.jsp?currentPage=<%=pp%>"><%=pp %></a></li>
+			
 		<%}
 	}
 	

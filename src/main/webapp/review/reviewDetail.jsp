@@ -23,24 +23,17 @@ div.bg {
 	width: 940px;
 	display: block;
 }
-
- * {
-	font-family: Nanum Gothic, sans-serif, Roboto, Helvetica, Arial;
-} 
-
 h3>p {
 	font-size: 30px;
 	color: #05141f;
 	line-height: 30px;
 }
-
 .chuImg {
 	cursor: pointer;
 	color: red;
 	font-size: 0px;
 }
-
-.updown {
+span.updown {
 	display: table-cell;
     width: 150px;
 	background-color: #cdd0d2;
@@ -48,64 +41,121 @@ h3>p {
     text-transform: uppercase;
     vertical-align: middle;
     font-size: 15px;
+    color: #05141f;
+    font-weight: bold;
 }
-.cbtn {
+div.btns {
+	width: 940px;
+	margin-bottom: 50px;
+	color: #05141f;
+}
+button.list {
+	margin-left: 40px;
+	margin-right: 650px;
+}
+button.del, button.list, button.update {
+	background-color: #05141f;
+	color: #fff;
+	width: 80px;
+	height: 40px;
+}
+button.del:hover,button.list:hover,button.update:hover {
+	background-color: #697279;
+	color: #fff;
+}
+a.next,a.pre {
+	color: #05141f;
+	text-decoration: none;
+	line-height: 20px;
+	font-size: 13px;
+	color: #37434c;
+    vertical-align: middle;
+}
+a.next,a.pre:hover {
+	cursor: pointer;
+}
+/* 댓글 리스트 */
+div.commentlist {
+	/* width: 600px; */
+/* 	margin-bottom: 30px; */
+}
+div.icon {
+	margin-left: 10px;
+	margin-bottom: 10px;
+	width: 90px;
+}
+div.icon>img {
+	width: 30px;
+	height: 100%;
+}
+div>img,div>span:hover {
+	cursor: pointer;
+}
+/* 댓글폼 */
+button.cbtn {
     border-color: #eaeaea;
     border-right-color: transparent;
     border-bottom-color: transparent;
     color: #444;
-	height: 50px;
-	width: 100px;
+	height: 90px;
+	width: 93px;
 	margin-left: 8px;
-	margin-bottom: 50px;
+	margin-bottom: 8px;
 }
-.text {
-	width: 470px;
-	height: 200px;
-	margin-left: 10px;
-	margin-bottom: 50px;
+textarea.text {
+	width: 900px;
+	height: 90px;
+	resize: none;
 }
-
-div.btns {
-	width: 940px;
-	margin-bottom: 20px;
-	color: #05141f;
+div.textcount {
+	width: 880px;
+	text-align: right;
 }
-button.list {
-	margin-left: 50px;
-	margin-right: 700px;
+span.chu>img{
+	width: 20px;
+	height: 100%;
+	cursor: pointer;
 }
-
 </style>
 
 </head>
-<% 
-	// 숫자 읽어오기
+<%
+// 숫자 읽어오기
 	String num = request.getParameter("num");
 	String currentPage = request.getParameter("currentPage");
 	//System.out.println(num);
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	
 	if(currentPage==null)
 		currentPage = "1";
 	
 	ReviewDao dao = new ReviewDao();
+	RcommentDao rdao = new RcommentDao();
+	//번호에 해당하는 dto 정보 얻기
+	ReviewDto dto = dao.getReviewData(num);
 	
 	String key = request.getParameter("key");
 	if(key!=null)
 		dao.updateReadcount(num);
 	
-	//번호에 해당하는 dto 정보 얻기
-	ReviewDto dto = dao.getReviewData(num);
+	String login = (String)session.getAttribute("loginok");
 	
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	List<RcommentDto> rlist = rdao.getAllcomment(dto.getNum());
 	
 	// 아이디,닉네임 얻기
 	String email = (String)session.getAttribute("myid");
 	LoginDao Ldao = new LoginDao();
 	LoginDto Ldto = Ldao.getUserInfo(2, email);
+	//String rname = Ldto.getName();
+
+	// 댓글 수
+	int totalComment;
+	totalComment = rdao.getCount(num);
+	//System.out.println(totalComment);
 	
-	String login = (String)session.getAttribute("loginok");
-	
+	// 번호에 해당하는 다음,이전글 의 dto 정보 얻기
+	ReviewDto dto2 = dao.getReviewNext(num);
+	ReviewDto dto3 = dao.getReviewPre(num);
 %>
 
 <script type="text/javascript">
@@ -134,6 +184,46 @@ $(function () {
 			}
 		});
 	});
+	
+	//댓글 숨기기
+	$("div.commentlist").hide();
+	$("div.icon").click(function () {
+		$("div.commentlist").toggle();
+	});
+	
+	// 댓글 삭제
+	$("span.cdel").click(function () {
+		let idx = $(this).attr("idx");
+		let tag = $(this);
+		//alert(idx);
+		
+		// 삭제확인창
+		let cancel = confirm("댓글을 삭제하시겠습니까?");
+		if(cancel){
+			$.ajax({
+				type:"get",
+				dataType:"html",
+				url:"review/commentDel.jsp",
+				data:{"idx":idx},
+				success:function(){
+				//새로고침
+					location.reload();
+				}
+			});
+		}
+	});
+	
+	// 댓글 500자
+	$("textarea.text").keyup(function () {
+		let inputlength = $(this).val().length;
+		let count = 500-inputlength;
+		//alert(count);
+		if($(this).val().length>500){
+			$(this).val($(this).val().substring(0, 500));
+		}
+		$("span.textcount").html(inputlength);
+	});
+	
 });
 
 </script>
@@ -158,8 +248,8 @@ $(function () {
 					<span style="line-height: 50px;">시승모델 | <%= dto.getCar() %></span><br>
 					<span style="margin-left: 13px; line-height: 20px;">작성일 | <%= sdf.format(dto.getWriteday()) %></span>
 					<span style="margin-left: 25px;">작성자 | <%= dto.getName() %></span><br>
-					<span style="margin-left: 750px;" class="chu" num="<%= dto.getNum() %>">좋아요</span>
-					<span class="glyphicon glyphicon-thumbs-up" style="color: red;"><%= dto.getChu() %></span>
+					<span style="margin-left: 750px;" class="chu" num="<%= dto.getNum() %>"><img src="images/icon_heart.png"></span>
+					<span><%= dto.getChu() %></span>
 					<span style="margin-left: 15px;">조회수 | <%= dto.getReadcount() %></span>
 				</th>
 			</tr>
@@ -174,43 +264,106 @@ $(function () {
 		<!-- 목록,수정,삭제 버튼 -->
 		<div class="btns">
 			<button type="button" class="btn btn-default list" onclick="location.href='index.jsp?main=review/reviewList.jsp?currentPage=<%= currentPage%>'">목록</button>
-			
-			<% 
+			<% 	// 로그인시 작성글email=로그인한 email 일 경우
 				if(login!=null && dto.getEmail().equals(email)){
 			%>
-			<button type="button" class="btn btn-default update" onclick="location.href='index.jsp?main=review/reviewUpdateForm.jsp?num=<%=dto.getNum()%>'">수정</button>
-			<button type="button" class="btn btn-default del" onclick="">삭제</button>
-			<% } %>
+			<button type="button" class="btn update" onclick="location.href='index.jsp?main=review/reviewUpdateForm.jsp?num=<%=dto.getNum()%>'">수정</button>
+			<button type="button" class="btn del" onclick="">삭제</button>
+			<% }else if(login!=null && email.equals("admin")) {%>
+				<button type="button" class="btn del" onclick="">삭제</button>
+		<% } %>
 		</div>
-		
-		<!-- 댓글-->
-		<div class="comment">
-		<%
 			
-			RcommentDao rdao = new RcommentDao();
-			List<RcommentDto> rlist = rdao.getAllcomment(dto.getNum());
-		
-			 // 입력폼은 로그인한 경우에만 보이게 하기
-			if(login!=null){
-		%>
-				<jsp:include page="commentForm.jsp"/>
-				<% } %>
-				<jsp:include page="commentList.jsp"/>
+		<!-- 댓글 리스트 -->
+		<div class="icon">
+			<img src="images/review_comment.png"><span style="margin-left:8px;">댓글</span>
+			<span><%= totalComment %></span>
+		</div>
+		<div class="commentlist">
+			<table class="table table-bordered" style="width: 900px;">
+			<% 
+					if(totalComment==0){
+			%>
+				<tr style="height: 60px;">
+					<td style="padding-top: 20px;">
+						<span style="margin-left: 10px;">댓글이 없습니다</span>
+					</td>
+				</tr>
+			<% }else{
+				for(RcommentDto rdto:rlist){
+			%>
+				<tr>
+					<td align="left">
+					<div style="margin-top: 8px;">
+						<span class="glyphicon glyphicon-user" style="font-size: 20px; font-size: 15px; margin-right: 8px; padding-left: 10px;"></span>
+						<% 
+							String rname = rdto.getName();
+						%>
+						<span><%= rname %></span>
+						<% // 후기글email=댓글email 경우 작성자 나오게
+							if(dto.getEmail().equals(rdto.getEmail())){
+						%>
+							<span style="color: red; font-size: 8pt; margin-left: 8px;">작성자</span>
+							<% } %><br>
+					</div>
+						<span style="padding-left: 40px;">
+							<%= rdto.getContent().replace("\n", "<br>") %>
+						</span><br>
+						<span style=" margin-left: 10px; font-size: 8pt; color:gray; padding-left: 30px;">
+							<%= sdf.format(rdto.getWriteday()) %>
+						</span>
+						<% // 로그인이면서 로그인한email=댓글작성자email or 관리자
+							if(login!=null && rdto.getEmail().equals(email) || login!=null && email.equals("admin")){
+						%>
+						<span class="glyphicon glyphicon-trash cdel" style="font-size: 12pt; cursor: pointer; margin-left: 820px; line-height: 30px;" idx="<%= rdto.getIdx() %>"></span>
+						<% } %>
+					</td>
+				</tr>
+				<% } 
+				} 
+						// 댓글폼은 로그인한 경우에만 보이게 하기
+						if(login!=null){
+					%>
+						<!-- 댓글 폼 -->
+						<div class="commentform">
+							<form action="review/commentInsert.jsp" method="post">
+							<input type="hidden" name="num" value="<%=dto.getNum()%>">
+							<input type="hidden" name="myid" value="<%=Ldto.getEmail()%>">
+							<input type="hidden" name="name" value="<%=Ldto.getName()%>">
+							<input type="hidden" name="currentPage" value="<%=currentPage%>">
+							<table>
+								<tr>
+									<td>
+										<textarea name="content" required="required" class="text" placeholder="더 훈훈해지는 댓글 부탁드립니다"></textarea>
+									</td>
+									<td>
+										<button type="submit" class="btn btn-info cbtn">등록</button>
+									</td>
+								</tr>
+							</table>
+									<div class="textcount">
+										<span class="textcount">0</span><span> / 500</span>
+									</div>
+							</form>
+						</div>
+					<% } %>
+			</table>
 		</div>
 		
 		<!-- 이전, 다음 글 -->
-		<table class="table table-bordered" style="width: 800px;">
+		<table class="table table-bordered" style="width: 940px; margin: 150px auto;">
 			<tr>
 				<td style="padding: 0px;">
 					<span class="glyphicon glyphicon-chevron-up updown">&nbsp;다음글</span>
 				</td>
-				<td style="width: 850px;">
-				<% 
-				if(dao.reviewNextNum(num)!=0){
-				%>
-					<a class="subject" href="index.jsp?main=review/reviewDetail.jsp?num=<%= dao.reviewNextNum(num) %>&currentPage=<%=currentPage%>&key=list"><%= dao.reviewNextNum(num)%></a>
+				<td class="next" style="width: 850px; padding-top: 18px; padding-left: 25px;">
+					<% 
+					if(dto2.getNum()!=null){
+					%>
+					<a class="next" href="index.jsp?main=review/reviewDetail.jsp?num=<%= dto2.getNum() %>&currentPage=<%=currentPage%>&key=list">
+					<%= dto2.getSubject()%></a>
 					<% }else{ %>
-					<a>다음 글이 없습니다</a>
+					<span class="next"><p>다음 글이 없습니다</p></span>
 					<% } %>
 				</td>
 			</tr>
@@ -218,19 +371,18 @@ $(function () {
 				<td style="padding: 0px;">
 					<span class="glyphicon glyphicon-chevron-down updown">&nbsp;이전글</span>
 				</td>
-				<td style="width: 850px;">
-				<% 
-				if(dao.reviewPreNum(num)!=0){
-				%>
-				<input type="hidden" value="<%= dao.reviewPreNum(num)%>">
-				<a class="subject" href="index.jsp?main=review/reviewDetail.jsp?num=<%= dao.reviewPreNum(num) %>&currentPage=<%=currentPage%>&key=list"><%= dao.reviewPreNum(num)%></a>
-				<% }else{ %>
-				<a>이전 글이 없습니다</a>
-				<% } %>
+				<td class="pre" style="width: 850px; padding-top: 18px; padding-left: 25px;">
+					<% 
+					if(dto3.getNum()!=null){
+					%>
+					<a class="pre" style="margin-top: 20px;" href="index.jsp?main=review/reviewDetail.jsp?num=<%= dto3.getNum() %>&currentPage=<%=currentPage%>&key=list">
+					<%= dto3.getSubject()%></a>
+					<% }else{ %>
+					<span class="pre"><p>이전 글이 없습니다</p></span>
+					<% } %>
 				</td>
 			</tr>
 		</table>
-	</div>
 
 </body>
 </html>

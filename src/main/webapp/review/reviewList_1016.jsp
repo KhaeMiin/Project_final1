@@ -1,4 +1,3 @@
-<%@page import="java.util.ArrayList"%>
 <%@page import="data.dao.RcommentDao"%>
 <%@page import="data.dto.LoginDto"%>
 <%@page import="data.dao.LoginDao"%>
@@ -77,23 +76,6 @@ table.list {
 
 </head>
 <%
-
-request.setCharacterEncoding("UTF-8");
-String sDivide = "전체";
-String search = "";
-int pageNumber = 0;
-
-if(request.getParameter("sDivide") != null){
-	sDivide = request.getParameter("sDivide");
-}
-if(request.getParameter("pagetNumber") != null){
-	try{
-		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-	}catch (Exception e){
-		System.out.println("검색 페이지 번호 오류");
-	}
-}
-
 ReviewDao dao = new ReviewDao();
 // 페이징 처리에 필요한 변수선언
 int perPage = 10; // 한페이지에 보여질 글의 갯수
@@ -153,22 +135,6 @@ if (list.size() == 0 && totalCount > 0) // 주의하기!!
 	<div style="margin-bottom: 50px;">
 		<p>고객님의 소중한 리뷰가 큰 힘이 됩니다.</p>
 	</div>
-	
-	<!-- 검색 -->
-	<section class="container">
-		<form action="inedx.jsp?main=review/rivewList.jsp" method="get" class="form-inline mt-3">
-			<select name="sDivide" class="form-control mx-1 mt-2">
-				<option value="전체">전체</option>
-				<option value="차종1" <% if(sDivide.equals("차종1")) out.println("selected"); %>>차종1</option>
-				<option value="차종2" <% if(sDivide.equals("차종2")) out.println("selected"); %>>차종2</option>
-				<option value="차종3" <% if(sDivide.equals("차종3")) out.println("selected"); %>>차종3</option>
-			</select>
-		</form>
-		<%
-			ArrayList<ReviewDto> reviewList = new ArrayList<ReviewDto>();
-		
-		%>
-	</section>
 	
 	<table class="list">
 

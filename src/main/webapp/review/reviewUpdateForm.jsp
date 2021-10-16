@@ -30,7 +30,7 @@
 	}
 </style>
 <%
-	// 번호읽기
+// 번호읽기
 	String num = request.getParameter("num");
 	
 	// db 에서 num 에 해당하는 dto 얻기

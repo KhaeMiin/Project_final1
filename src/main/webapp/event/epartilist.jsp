@@ -43,17 +43,20 @@ body{
 $(function(){
 	$("span.epdel").click(function(){
 		var idx=$(this).attr("idx");
-		$.ajax({
-			type:"get",
-			dataType:"html",
-			url:"event/epartidelete.jsp",
-			data:{"idx":idx},
-			success:function(data){
-				//새로고침
-				location.reload();
-			}
+		let cancel = confirm("삭제하시겠습니까?");
+		if(cancel){
+			$.ajax({
+				type:"get",
+				dataType:"html",
+				url:"event/epartidelete.jsp",
+				data:{"idx":idx},
+				success:function(data){
+					//새로고침
+					location.reload();
+				}
+			});
 		});
-	});
+	}
 		
 });
 </script>

@@ -110,17 +110,19 @@ div.ta{
 		//댓글 삭제 이벤트
 		$("span.edel").click(function(){
 			var idx=$(this).attr("idx");
-			//alert(idx);
-			$.ajax({
-				type:"get",
-				dataType:"html",
-				url:"event/ecommentdelete.jsp",
-				data:{"idx":idx},
-				success:function(data){
-					//새로고침
-					location.reload();
-				}
-			});
+			let cancel = confirm("삭제하시겠습니까?");
+			if(cancel){
+				$.ajax({
+					type:"get",
+					dataType:"html",
+					url:"event/ecommentdelete.jsp",
+					data:{"idx":idx},
+					success:function(data){
+						//새로고침
+						location.reload();
+					}
+				});
+			}
 		});
 		//댓글부분은 무조건 안보이게 처리
 		$('div.ecommnetupdateform').hide();

@@ -2,9 +2,8 @@
 <%@page import="data.dao.ReviewDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% 
-
-	String num = request.getParameter("num");
+<%
+String num = request.getParameter("num");
 	ReviewDao dao = new ReviewDao();
 	
 	// 추천수 +1
@@ -14,6 +13,5 @@
 	int chu = dao.getReviewData(num).getChu();
 	JSONObject ob = new JSONObject();
 	ob.put("chu", chu);
-
 %>
 <%= ob.toString() %>

@@ -92,7 +92,7 @@
 
 			<button type="button" class="btn btn-sm btn-info"
 			style="width: 80px;"
-			onclick="location.href='event/windelete.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>'">삭제</button>
+			onclick="removeCheck()">삭제</button>
 			<%} %>
 			<button type="button" class="btn btn-sm btn-info"
 			style="width: 80px;"
@@ -102,7 +102,20 @@
 	</tr>
 </table>
 </div>
+<script type="text/javascript">
+function removeCheck() {
 
+	 if (confirm("정말 삭제하시겠습니까?") == true){    //확인
+
+		 location.href = 'event/windelete.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>';
+
+	 }else{   //취소
+
+		return;
+	 }
+
+	}
+</script>
 </body>
 </html>
 

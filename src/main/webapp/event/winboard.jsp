@@ -78,7 +78,7 @@
     <div class="container-fluid">
         <div class="col-lg-8"><!--게시판 넓이 -->
             <div class="col-lg-12">
-            	<a href='javascript:history.back();'><i class='fas fa-angle-left' style='cursor:pointer;'>돌아가기</i></a>
+            	<a href='index.jsp?main=event/eventlist.jsp'><i class='fas fa-angle-left' style='cursor:pointer;'>돌아가기</i></a>
                 <h1 class="page-header">이벤트 당첨자 발표</h1>
             </div>
             <div class="row">

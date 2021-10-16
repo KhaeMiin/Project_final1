@@ -57,7 +57,7 @@ List<ProductDto> list = dao.getList(writer, start, perPage);
 String email = (String)session.getAttribute("myid");
 //로그인상태 확인
 String loginok = (String)session.getAttribute("loginok");
-String admin = "admin@naver.com";
+String admin = "admin";
 
 
 if(list.size()==0 && totalCount>0){%>

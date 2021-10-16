@@ -9,6 +9,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.cbtn {
+    border-color: #eaeaea;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    color: #444;
+	height: 90px;
+	width: 95px;
+	margin-left: 8px;
+	margin-bottom: 8px;
+}
+textarea.text {
+	width: 900px;
+	height: 90px;
+	resize: none;
+}
+</style>
 </head>
 
 <% 
@@ -39,7 +56,7 @@
 	<table>
 		<tr>
 			<td>
-				<textarea name="content" required="required" class="form-control text"></textarea>
+				<textarea name="content" required="required" class="text"></textarea>
 			</td>
 			<td>
 				<button type="submit" class="btn btn-info cbtn">등록</button>

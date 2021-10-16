@@ -2,9 +2,8 @@
 <%@page import="data.dao.ReviewDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% 
-
-	String num = request.getParameter("num");
+<%
+String num = request.getParameter("num");
 	
 	ReviewDao dao = new ReviewDao();
 	// 글번호에 대한 포토네임
@@ -21,5 +20,4 @@
 	
 	String move = "../index.jsp?main=review/reviewList.jsp?";
 	response.sendRedirect(move);
-
 %>

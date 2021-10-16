@@ -10,7 +10,7 @@ import java.util.Vector;
 import data.dto.ReviewDto;
 import mysql.db.DbConnect;
 
-public class ReviewDao {
+public class ReviewDao_1016 {
 
 	DbConnect db = new DbConnect();
 	
@@ -357,28 +357,15 @@ public class ReviewDao {
 	}
 	
 	// 테스트
-	public ArrayList<ReviewDto> getlist(String sDivide, String search, int pageNumber) {
-	//public ArrayList<ReviewDto> getlist(String sDivide, String searchType, String search, int pageNumber) {
-	//	if(sDivide.equals("전체")) {
-	//		sDivide = "";
-	//	}
-		ArrayList<ReviewDto> reviewList = null;
-		String sql = "";
+	public ArrayList<ReviewDto> getlist(String sDivide, int pageNumber) {
 		
-		Connection conn = null;
+		ArrayList<ReviewDto> reviewList = null;
+		Connection conn = db.getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		String sql = "";
 		
 		try {
-			if(sDivide.equals("제목")) {
-				sql = "select * from review where subject like ? order by num desc limit "+pageNumber*10+", "+pageNumber*10+11;
-			} else if (sDivide.equals("내용")) {
-				sql = "select * from review where content like ? order by num desc limit "+pageNumber*10+", "+pageNumber*10+11;
-			}
-			
-			conn = db.getConnection();
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, "%"+sDivide+"%");
 			
 			if(sDivide.equals("car")) {
 				sql = "select * from review where car like ? order by num desc limit "+pageNumber*10+","+pageNumber*10+11;
@@ -386,25 +373,24 @@ public class ReviewDao {
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+sDivide+"%");
-			pstmt.setString(2, "%"+search+"%");
 			
 			rs = pstmt.executeQuery();
 			
 			reviewList = new ArrayList<ReviewDto>();
 			
 			while (rs.next()) {
-				ReviewDto Review = new ReviewDto();
-				Review.setNum(rs.getString("num"));
-				Review.setName(rs.getString("name"));
-				Review.setCar(rs.getString("car"));
-				Review.setEmail(rs.getString("email"));
-				Review.setSubject(rs.getString("subject"));
-				Review.setContent(rs.getString("content"));
-				Review.setReadcount(rs.getString("readcount"));
-				Review.setChu(rs.getInt("chu"));
-				Review.setWriteday(rs.getTimestamp("writeday"));
+				ReviewDto dto = new ReviewDto();
+				dto.setNum(rs.getString("num"));
+				dto.setName(rs.getString("name"));
+				dto.setCar(rs.getString("car"));
+				dto.setEmail(rs.getString("email"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
+				dto.setReadcount(rs.getString("readcount"));
+				dto.setChu(rs.getInt("chu"));
+				dto.setWriteday(rs.getTimestamp("writeday"));
 				
-				reviewList.add(Review);
+				reviewList.add(dto);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
