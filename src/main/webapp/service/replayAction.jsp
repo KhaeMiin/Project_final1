@@ -40,6 +40,12 @@
 		String subject = multi.getParameter("subject");
 		String contents = multi.getParameter("contents");
 		String mail = multi.getParameter("mail");
+		
+		
+		//추가
+		String jaid = multi.getParameter("passw2");
+		
+		
 		if(mail.equals("")){
 			mail = "미입력";
 		}
@@ -85,6 +91,7 @@
 		dto.setEmail(mail);
 		dto.setMobile(mobile);
 		dto.setId(myid);
+		dto.setJaid(jaid);
 		
 		//dao 선언
 		ServiceDao dao = new ServiceDao();

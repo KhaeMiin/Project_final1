@@ -1,3 +1,5 @@
+<%@page import="data.dto.LoginDto"%>
+<%@page import="data.dao.LoginDao"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="data.dto.ServiceDto"%>
@@ -10,6 +12,8 @@
 <html>
 <head>
 <meta charset="UTF-8 ">
+
+
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <title>CUSTOMERSERVICE</title>
@@ -163,6 +167,9 @@ body{
 	String login = (String)session.getAttribute("loginok");
 	String myid = (String)session.getAttribute("myid");
 	ServiceDao dao = new ServiceDao();
+	
+
+
 	
 	//페이징 처리에 필요한 변수선언
 	//한페이지에 나타낼 글의수
@@ -335,6 +342,19 @@ body{
 				<%if(dto.getOpen().equals("no")){%>	
 					<span class = "glyphicon glyphicon-lock lock2" >
 						<input type = "hidden" value = "<%=dto.getId()%>" name = "lock" class = "lock">
+						<input type = "hidden" value = "<%=dto.getJaid()%>" name = "lock2" class = "lock2">
+    		<%
+    		//추가
+    		if(login == "yes"){
+    			
+    			LoginDao ldao = new LoginDao();
+    			LoginDto ldto = ldao.getUserInfo(2, myid);
+    			String nick = ldto.getName();%>
+    			<input type = "hidden" value = "<%=nick%>" name = "lock3" class = "lock3">
+    			
+    		<%}
+    		%>
+					
 					</span>	
 				<%}%> 
 				<%=subject%>
@@ -344,7 +364,6 @@ body{
     		<td><%=dto.getWriter()%></td>
     		<td><%=sdf.format(dto.getWriteday())%></td>
     		<td><%=dto.getViews()%></td>
-    		
 		</tr>
 		<%}
 		}%>
@@ -415,7 +434,7 @@ body{
 		$(".detail").click(function(){
 			let num = $(this).attr("num")
 			if($(this).children().find(".lock").attr("name") === "lock"){
-				if("<%=myid%>" === $(this).children().find(".lock").val() || "<%=myid%>" === "admin" ){
+				if("<%=myid%>" === $(this).children().find(".lock").val() || $(this).children().find(".lock3").val() === $(this).children().find(".lock2").val() || "<%=myid%>" === "admin" ){
 					location.href = "index.jsp?main=service/detail.jsp?num="+num+"&currentPage=<%=currentPage%>&key=list&perPage=<%=perPage%>&keyField=<%=keyField%>&keyWord=<%=keyWord%>";
 				}else{
 					alert("작성자와 관리자만 접근이 가능합니다.")

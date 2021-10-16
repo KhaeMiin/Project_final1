@@ -39,6 +39,7 @@
 		String writer = multi.getParameter("writer");
 		String open = multi.getParameter("open");
 		String mobile = multi.getParameter("mobile");
+		String jaid = multi.getParameter("passw");
 		if(mobile.equals("")){
 			mobile = "미입력";
 		}
@@ -65,6 +66,7 @@
 			
 		//dto 에 저장
 		ServiceDto dto = new ServiceDto(category, writer, open, mobile, mail, subject, contents, file, myid);
+		dto.setJaid(jaid);
 		System.out.println(myid + "2");
 		//dao 선언
 		ServiceDao dao = new ServiceDao();

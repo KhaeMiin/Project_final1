@@ -17,10 +17,23 @@ public class ServiceDto {
 	private String status;
 	private Timestamp writeday;
 	private String id;
+	
+	//추가
+	private String jaid;
+
 	//변경
 	private int pos;            
 	private int ref;  
-	private int depth;        
+	private int depth;   
+	
+	
+	public String getJaid() {
+		return jaid;
+	}
+	
+	public void setJaid(String jaid) {
+		this.jaid = jaid;
+	}
 	public int getPos() {
 		return pos;
 	}

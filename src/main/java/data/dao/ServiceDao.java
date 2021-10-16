@@ -19,8 +19,8 @@ public class ServiceDao {
 		Connection conn = db.getConnection();
 		PreparedStatement ps = null; //id이후부터 새롭게추가
 		String sql ="insert into service (category, writer, open, mobile, email, subject, contents, file, writeday, id, "
-				+ "ref, pos, depth)"
-				+ " values (?,?,?,?,?,?,?,?,now(),?,?,0,0)";
+				+ "ref, pos, depth,jaid)"
+				+ " values (?,?,?,?,?,?,?,?,now(),?,?,0,0,?)";
 		//답변을 위한 ref설정
 		int ref=getMaxNum()+1;
 		System.out.println(ref + " ref체크");
@@ -38,6 +38,7 @@ public class ServiceDao {
 			ps.setString(8, dto.getFile());
 			ps.setString(9, dto.getId());
 			ps.setInt(10, ref);
+			ps.setString(11, dto.getJaid());
 			//실행
 			check = ps.execute();
 			
@@ -54,8 +55,8 @@ public class ServiceDao {
 		Connection con = db.getConnection();
 		PreparedStatement ps = null;
 		String sql ="insert into service (category, writer, open, mobile, email, subject, contents, file, writeday, id, "
-				+ "ref, pos, depth)"
-				+ " values (?,?,?,?,?,?,?,?,now(),?,?,?,?)";
+				+ "ref, pos, depth, jaid)"
+				+ " values (?,?,?,?,?,?,?,?,now(),?,?,?,?,?)";
 		try {
 			ps = con.prepareStatement(sql);
 			//바인딩
@@ -73,6 +74,10 @@ public class ServiceDao {
 			ps.setInt(10, dto.getRef());//입력할때 원글과 동일한 ref 값으로 저장시킬것
 			ps.setInt(11, dto.getPos()+1);//원글의 pos +1
 			ps.setInt(12, dto.getDepth()+1);//원글의 depth +1
+			
+			//추가
+			ps.setString(13, dto.getJaid());
+			
 			int cnt = ps.executeUpdate();
 
 		} catch (Exception e) {
@@ -155,6 +160,8 @@ public class ServiceDao {
 				int depth = rs.getInt("depth");
 				ServiceDto dto = new ServiceDto(num, category, writer, open, mobile, email, subject,
 						contents, views, file, status, writeday, id, pos, ref, depth);
+				dto.setJaid(rs.getString("jaid"));
+				
 				//list에 추가
 				list.add(dto);
 			}
@@ -199,6 +206,7 @@ public class ServiceDao {
 				int depth = rs.getInt("depth");
 				dto = new ServiceDto(num, category, writer, open, mobile, email, subject,
 						contents, views, file, status, writeday, id, pos, ref, depth);
+				dto.setJaid(rs.getString("jaid"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

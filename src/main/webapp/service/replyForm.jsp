@@ -148,6 +148,7 @@ body{
 	String myid = (String)session.getAttribute("myid");
 	String num = request.getParameter("num");
 	String currentPage=request.getParameter("currentPage");
+	String pw = request.getParameter("passw");
 	//페이지값
 	int perPage = 10;
 	if(request.getParameter("perPage")!=null){
@@ -225,6 +226,7 @@ body{
 				 <input type="hidden" name="perPage" value="<%=perPage%>">
 				 <input type="hidden" name="keyField" value="<%=keyField%>">
 				 <input type="hidden" name="keyWord" value="<%=keyWord%>">
+				 <input type="hidden" name = "passw2" value = "<%=dto.getJaid()%>">
 				 
                 <div class="btnContainer">
                     <button type = "submit" class="baseBtn write">작성</button>

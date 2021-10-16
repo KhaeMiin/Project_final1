@@ -231,6 +231,7 @@ body{
 				<input type = "hidden" name = "perPage" value=<%=perPage%>>
 				<input type="hidden" name="keyField" value="<%=keyField%>">
 			    <input type="hidden" name="keyWord" value="<%=keyWord%>">
+			    <input type="hidden" name="passw" value="<%=dto.getName()%>">
                 <div class="btnContainer">
                     <button type = "submit" class="baseBtn write">작성</button>
                     <button type = "reset"  class="baseBtn rewrite">재작성</button>

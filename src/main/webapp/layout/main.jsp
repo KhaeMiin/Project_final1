@@ -133,10 +133,9 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월dd일 HH:mm z");
 		<div class="container" style="font-family: 'Noto Sans KR:wght@400', sans-serif;">
 			<div class="row">
 		<%
-		ProductDto pdto = new ProductDto();
-		
-		for(int i=0; i<6; i++){
-			ProductDto sdto =  list2.get(i);				
+		int no = 0;
+		for(ProductDto sdto:list2){
+				if(no>=6)	{break;}	
 		%>
 				<div class="col-lg-2 col-md-4 ">
 					<div class="sort w-100 text-center ftco-animate">
@@ -145,7 +144,7 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy년 MM월dd일 HH:mm z");
 					</div>
 				</div>
 
-		<%}
+		<%no++;}
 		%>
 			</div>
 		</div>
