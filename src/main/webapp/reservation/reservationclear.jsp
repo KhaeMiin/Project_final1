@@ -60,10 +60,7 @@ System.out.println(dto.getEmail());
 				<div class="cart-detail cart-total p-3 p-md-4" style="width: 650px;">
 					<h3 class="billing-heading mb-4">Reservation</h3>
 					<p class="d-flex">
-						<span>Name :</span><%=dto.getName()%><span id="tex1">님</span>
-					</p>
-					<p class="d-flex">
-						<span>Date :</span><span id="tex2"></span>
+						<span>Name : </span><span id="tex1"><%=dto.getName()%>  님</span>
 					</p>
 					<hr>
 					<p class="d-flex total-price">

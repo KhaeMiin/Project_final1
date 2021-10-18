@@ -26,7 +26,7 @@ public class DbConnect {
 		Connection conn = null;
 		try {
 			//로딩성공되었으니 드라이버 메니저를사용해서 오라클db와 커넥트한다
-			conn = DriverManager.getConnection(MYSQL_URL, "root", "1234");
+			conn = DriverManager.getConnection(MYSQL_URL, "root", "haemin1964+");
 		} catch (SQLException e) {
 			System.out.println("mysql 연결 실패:" + e.getMessage());
 		}

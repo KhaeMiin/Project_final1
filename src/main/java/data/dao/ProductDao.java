@@ -34,6 +34,7 @@ public class ProductDao {
 		}finally {
 			db.dbClose(pstmt, conn);
 		}
+		System.out.println(sql);
 	}
 	
 	
@@ -288,10 +289,11 @@ public class ProductDao {
 	   }
 	   
 	   
+	   //¼öÁ¤Æû
 	   public void updataProduct(ProductDto dto) {
 		   Connection conn = db.getConnection();
 		   PreparedStatement pstmt = null;
-		   String sql = "update product set writer=?, subject=?,content=?, photoname=? where num=?";
+		   String sql = "update product set writer=?, subject=?, content=?, photoname=? where num=?";
 		   
 		   try {
 			   pstmt = conn.prepareStatement(sql);
@@ -309,6 +311,7 @@ public class ProductDao {
 		   }finally {
 			   db.dbClose(pstmt, conn);
 		   }
+		   System.out.println("sql:" + dto.getWriter()+dto.getSubject()+dto.getContent()+"num:" + dto.getNum());
 	   }
 	   
 		//ÀüÃ¼°¹¼ö

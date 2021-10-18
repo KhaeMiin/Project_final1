@@ -16,7 +16,7 @@ public class ReservationDao {
 	public void insertData(ReservationDto dto) {
 		Connection conn = db.getConnection();
 		PreparedStatement pstmt = null;
-		String sql="insert into reservation (name,carname,addr1,addr2,postcode,pw) values (?,?,?,?,?,?)";
+		String sql="insert into reservation (name,carname,addr1,addr2,postcode,pw,writeday) values (?,?,?,?,?,?,?)";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -28,6 +28,7 @@ public class ReservationDao {
 			pstmt.setString(4, dto.getAddr2());
 			pstmt.setString(5, dto.getPostcode());
 			pstmt.setString(6, dto.getPw());
+			pstmt.setString(7, dto.getWriteday());
 			
 			pstmt.execute();
 		} catch (Exception e) {
@@ -54,12 +55,12 @@ public class ReservationDao {
 			
 			while(rs.next()) {
 				ReservationDto dto = new ReservationDto();
-				dto.setNum("num");
-				dto.setName("name");
-				dto.setCarname("carname");
-				dto.setAddr1("addr1");
-				dto.setAddr2("addr2");
-				dto.setPostcode("postcode");
+				dto.setNum(rs.getString("num"));
+				dto.setName(rs.getString("name"));
+				dto.setCarname(rs.getString("carname"));
+				dto.setAddr1(rs.getString("addr1"));
+				dto.setAddr2(rs.getString("addr2"));
+				dto.setPostcode(rs.getString("postcode"));
 				
 				list.add(dto);
 			}

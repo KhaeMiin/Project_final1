@@ -1,3 +1,4 @@
+<%@page import="java.sql.Timestamp"%>
 <%@page import="data.dao.ReservationDao"%>
 <%@page import="data.dto.ReservationDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -14,6 +15,7 @@ String postcode = request.getParameter("postcode");
 String email1 = request.getParameter("email1");
 String email2 = request.getParameter("email2");
 String pw = request.getParameter("pw");
+String writeday = request.getParameter("date");
 
 ReservationDto dto = new ReservationDto();
 
@@ -24,6 +26,7 @@ dto.setAddr1(addr1);
 dto.setAddr2(addr2);
 dto.setPostcode(postcode);
 dto.setPw(pw);
+dto.setWriteday(writeday);
 
 ReservationDao dao = new ReservationDao();
 dao.insertData(dto);

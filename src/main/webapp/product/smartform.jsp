@@ -62,7 +62,6 @@ text-align: center;
 			<td>
 				<select name="writer" class="form-control"
 					required="required" style="width: 500px;">
-					<option selected disabled>선택</option>
 					<option value="ev">ev</option>
 					<option value="rv">rv</option>
 					<option value="seungyong">seungyong</option>

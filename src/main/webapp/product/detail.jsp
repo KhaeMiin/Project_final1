@@ -44,7 +44,7 @@ String admin = "admin";
 
 </div>
 <table style="margin-left: 80px; top: 200px;">
-	<caption><b>TestPage</b></caption>
+	<caption><b></b></caption>
 	<tr>
 		<td>
 			<%=dto.getContent() %>

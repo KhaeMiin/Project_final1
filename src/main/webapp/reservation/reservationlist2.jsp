@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="data.dao.ReservationDao"%>
 <%@page import="data.dto.ReservationDto"%>
 <%@page import="java.util.List"%>
@@ -56,6 +57,7 @@ ReservationDao rdao = new ReservationDao();
 
 List<ReservationDto> list = rdao.getList(name, pass);
 
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 
 %>
@@ -77,13 +79,13 @@ List<ReservationDto> list = rdao.getList(name, pass);
 					<hr>
  <%for(ReservationDto rdto:list){%> 
 					<p class="d-flex">
-						<span>&nbsp;&nbsp;&nbsp;&nbsp;Model :</span><%=rdto.getName()%> <span id="tex2"></span>
+						<span style="width: 150px;">&nbsp;&nbsp;&nbsp;&nbsp;Model :</span><%=rdto.getCarname()%> <span id="tex2"></span>
 					</p>
 					<p class="d-flex">
-						<span>&nbsp;&nbsp;&nbsp;&nbsp;Address : </span><%=rdto.getAddr1() %><%=rdto.getAddr2() %><span id="tex2"> </span>
+						<span style="width: 150px;">&nbsp;&nbsp;&nbsp;&nbsp;Address : </span><%=rdto.getAddr1() %><span style="width: 150px;"><%=rdto.getAddr2() %></span>
 					</p>
 					<p class="d-flex">
-						<span>&nbsp;&nbsp;&nbsp;&nbsp;Date :</span><%=rdto.getWriteday() %><span id="tex2"></span>
+						<span style="width: 150px;">&nbsp;&nbsp;&nbsp;&nbsp;Date :</span><%=rdto.getWriteday() %><span id="tex4"></span>
 					</p>
 					<hr>
  <%}

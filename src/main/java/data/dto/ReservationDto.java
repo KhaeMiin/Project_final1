@@ -11,7 +11,7 @@ public class ReservationDto {
 	private String addr2;
 	private String postcode;
 	private String pw;
-	private Timestamp writeday;
+	private String writeday;
 	public String getNum() {
 		return num;
 	}
@@ -54,13 +54,13 @@ public class ReservationDto {
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
-	public Timestamp getWriteday() {
+	public String getWriteday() {
 		return writeday;
 	}
-	public void setWriteday(Timestamp writeday) {
+	public void setWriteday(String writeday) {
 		this.writeday = writeday;
 	}
-	
+
 
 	
 }

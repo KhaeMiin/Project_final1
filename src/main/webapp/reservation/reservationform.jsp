@@ -192,10 +192,10 @@ List<ProductDto> list = pdao.getAllDatas();
 							<div class="cart-detail cart-total p-3 p-md-4">
 								<h3 class="billing-heading mb-4">Total</h3>
 								<p class="d-flex">
-									<span>Model</span> <span id="tex1"></span>
+									<span>Date</span> <span id="tex1"></span>
 								</p>
 								<p class="d-flex">
-									<span>Date</span> <span id="tex2"></span>
+									<span>Model: </span> <span id="tex2"></span>
 								</p>
 								<hr>
 								<p class="d-flex total-price">

@@ -44,6 +44,8 @@
 <%
 	//해당 num
 	String num = request.getParameter("num");
+	//페이지번호
+	String currentPage=request.getParameter("currentPage");
 	
 	ProductDao dao = new ProductDao();
 	ProductDto dto = dao.getData(num);
@@ -52,28 +54,31 @@
 <body>
 
 <!-- 이미지 미리보기할 위치 -->
-	<img id="showimg" style="position: absolute; left: 800px; top:100px; max-width: 200px;"
-	src="<%=(dto.getPhotoname()==null?"":"save/"+dto.getPhotoname())%>">
+<!-- 이미지 미리보기할 위치 -->
+	<div>
+	<img id="showimg" style="position: absolute; left: 1000px; top:400px; max-width: 300px;"
+	  src="<%=(dto.getPhotoname()==null?"":"save/"+dto.getPhotoname())%>">
+	<b style="position: absolute; left: 1000px; top:350px; max-width: 300px;">썸네일 이미지(미리보기)</b>
+	</div>
 	
-	<form action="product/smartaction.jsp" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="num" value="<%=num%>">
+	<form action="product/updataaction.jsp" method="post" enctype="multipart/form-data" style="margin-left: 350px; margin-top: 100px;">
+			 <!-- 수정폼은 반드시 num 을 hidden 으로 보내야만 한다 -->
+	  <input type="hidden" name="num" value="<%=num%>">
+	  <input type="hidden" name="currentPage" value="<%=currentPage%>">	
+		
 		<table style="width: 580px;">
-		<caption><b>상품 등록</b>
-		<span class="glyphicon glyphicon-camera camera"></span>
-		<input type="file" name="photo" id="photo" style="visibility: hidden;"
-		onchange="readUrl(this)"><!-- readUrl(this):사진업로드시 미리보기 -->
-		</caption>
+
 			<tr>
 			<th bgcolor="orange" width="100">종 류</th>
 			<td>
 				<input type="text" name="writer" class="form-control"
-					required="required" style="width: 130px;" value="<%=dto.getWriter() %>">
+					required="required" style="width: 500px;" value="<%=dto.getWriter() %>">
 			</td>
 		</tr>
 		<tr>
-			<th bgcolor="orange" width="100">차  종</th>
+			<th bgcolor="orange" width="100">차  종</th>		
 			<td>
-				<input type="text" name="subject" class="form-control"
+			<input type="text" name="subject" class="form-control"
 					required="required" style="width: 500px;" value="<%=dto.getSubject() %>">
 			</td>
 		</tr>
@@ -82,18 +87,23 @@
 				<textarea name="content" id="content"		
 					required="required"			
 					style="width: 100%;height: 300px;display: none;"><%=dto.getContent() %></textarea>		
-			
 			</td>
 		</tr> 
 		<tr>
-				<td>
+				<td colspan="2">
 					<button type="submit" class="btn btn-default" 
-					style="width: 100px;height: 100px;"onclick="submitContents(this)"
+					style="width: 100px; margin-left: 450px; height: 100px;"onclick="submitContents(this)"
 					>등록</button>
 				</td>
-			</tr>
+		</tr>
+		<caption style="margin-bottom: 500px;"><b>썸네일 이미지</b>
+		<span class="glyphicon glyphicon-camera camera" style="font-size: 20px;"></span>
+		<input type="file" name="photo" id="photo" style="visibility: hidden;"
+		onchange="readUrl(this)"><!-- readUrl(this):사진업로드시 미리보기 -->
+		</caption>
 		</table>
 	</form>
+
 
 <!-- 스마트게시판에 대한 스크립트 코드 넣기 -->
 <script type="text/javascript">

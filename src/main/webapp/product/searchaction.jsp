@@ -37,6 +37,7 @@ int endPage;//각 블럭에 표시할 마지막페이지
 
 
 String search = request.getParameter("search");
+search = new String(search.getBytes("8859_1"),"UTF-8");
 
 //총 갯수
 totalCount = dao.getSearchTotalCount(search);
@@ -88,12 +89,14 @@ for(ProductDto dto:list){
 				style="background-image: url(save/<%=dto.getPhotoname() %>);">
 				<div class="desc">
 					<p class="meta-prod d-flex">
+						<a href="#"
 							class="d-flex align-items-center justify-content-center"><span
 							class="flaticon-shopping-bag"></span></a> <a href="../index.jsp?main=product/productform.jsp?go=detail.jsp"
 							class="d-flex align-items-center justify-content-center"><span
 							class="flaticon-heart">
 							</span></a> 
-							<a href="index.jsp?main=product/detail.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>&keydsds=list">
+							<a href="index.jsp?main=product/detail.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>&keydsds=list"
+							class="d-flex align-items-center justify-content-center">
 							<span class="flaticon-visibility"></span>
 							</a>
 					</p>
