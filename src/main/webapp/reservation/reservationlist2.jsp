@@ -79,13 +79,13 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					<hr>
  <%for(ReservationDto rdto:list){%> 
 					<p class="d-flex">
-						<span style="width: 150px;">&nbsp;&nbsp;&nbsp;&nbsp;Model :</span><%=rdto.getCarname()%> <span id="tex2"></span>
+						<span style="width: 150px;">&nbsp;&nbsp;&nbsp;&nbsp;Model :</span><%=rdto.getCarname()%> <span style="width: 150px;" id="tex2"></span>
 					</p>
 					<p class="d-flex">
 						<span style="width: 150px;">&nbsp;&nbsp;&nbsp;&nbsp;Address : </span><%=rdto.getAddr1() %><span style="width: 150px;"><%=rdto.getAddr2() %></span>
 					</p>
 					<p class="d-flex">
-						<span style="width: 150px;">&nbsp;&nbsp;&nbsp;&nbsp;Date :</span><%=rdto.getWriteday() %><span id="tex4"></span>
+						<span style="width: 150px;">&nbsp;&nbsp;&nbsp;&nbsp;Date :</span><%=rdto.getWriteday() %><span style="width: 150px;" id="tex4"></span>
 					</p>
 					<hr>
  <%}

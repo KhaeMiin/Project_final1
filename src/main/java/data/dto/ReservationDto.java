@@ -12,6 +12,7 @@ public class ReservationDto {
 	private String postcode;
 	private String pw;
 	private String writeday;
+	
 	public String getNum() {
 		return num;
 	}

@@ -8,46 +8,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Liquor Store - Free Bootstrap 4 Template by Colorlib</title>
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title></title>
 
-<link
-	href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,700;0,800;1,200;1,300;1,400;1,500;1,700&display=swap"
-	rel="stylesheet">
-
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<link rel="stylesheet" href="css/animate.css">
-
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
-
-<link rel="stylesheet" href="css/flaticon.css">
-<link rel="stylesheet" href="css/style.css">
-<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <style type="text/css">
 #fonts, #fontss, #fontss2, #fontss3 {
 	font-size: 1.5em;
 	color: black;
 }
+.sel{
+width: 100px;
+height: 30px;
+float: left;
+margin-right: 20px;
+}
+.sel2{
+width: 70px;
+height: 30px;
+float: left;
+margin-right: 20px;
+}
 </style>
  <script type="text/javascript">
-	$(function() {
-		$(document).on("change", "#date", function() {
-
-			var writer2 = "";
-			writer2 = $(this).val();
-			/* alert(writer2);	 */
-			$("#tex1").html(writer2);
-		});
-	});
 	$(function() {
 		$(document).on("change", "#carname", function() {
 
@@ -55,6 +36,33 @@
 			writer2 = $(this).val();
 			/* alert(writer2);	 */
 			$("#tex2").html(writer2);
+		});
+	});
+	$(function() {
+		$(document).on("change", ".sel", function() {
+
+			var writer2 = "";
+			writer2 += $("#date").val();
+			writer2 += $("#date2").val();
+			writer2 += $("#date3").val();
+			/* alert(writer2);	 */
+			$("#tex1").html(writer2);
+		});
+	});
+	
+	$(function() {
+		$(document).on("change", ".sel2", function() {
+
+			var timeee= "";
+			var a = "0";
+			var b = ":"
+			timeee += $("#time").val();
+//			timeee += a;
+			timeee += $("#time1").val();
+			timeee += b;
+			timeee += $("#time2").val();
+			/* alert(writer2);	 */
+			$("#tex3").html(timeee);
 		});
 	});
 	
@@ -100,7 +108,7 @@ List<ProductDto> list = pdao.getAllDatas();
 										<span class="ion-ios-arrow-down"></span>
 									</div>
 									<select name="carname" id="carname" required="required"
-									 class="form-control">
+									 class="form-control" >
 										<%
 										for (ProductDto pdto : list) {
 										%>
@@ -121,8 +129,56 @@ List<ProductDto> list = pdao.getAllDatas();
 									<div class="icon">
 										<span class="ion-ios-arrow-down"></span>
 									</div>
-									<input type="text" class="form-control" name="date" required id="date"
-										placeholder="날짜를 입력하세요" value="2021-11-12">
+									<select name="date" id="date" required="required"
+									 class="form-control sel">
+										<option value="2021년">2021년</option>
+									</select>
+									<select name="date2" id="date2" required="required"
+									 class="form-control sel">
+										<%
+										int no=10;
+										for (int i=9;i<=10;i++) {
+											no++;
+										%>
+										<option value="<%=no %>월"><%=no %>월</option>
+										<%
+										}
+										%>
+									</select>
+									<select name="date3" id="date3" required="required"
+									 class="form-control sel">
+										<%
+										for (int j=1;j<=30;j++) {
+										%>
+										<option value="<%=j %>일"><%=j %>일</option>
+										<%
+										}
+										%>
+									</select>
+ 									<select name="time" id="time" required="required"
+									 class="form-control sel2">
+										
+										<option value="PM">PM</option>
+										<option value="AM">AM</option>
+										
+									</select> 
+									<select name="time1" id="time1" required="required"
+									 class="form-control sel2">
+										<%
+										int n = 0;
+										for (int j=0;j<=11;j++) {
+											n++;
+										%>
+										<option value="<%=n %>"><%=n %>시</option>
+										<%
+										}
+										%>
+									</select>
+									<select name="time2" id="time2" required="required"
+									 class="form-control sel2">
+										<option value="30">30분</option>
+										<option value="00">00분</option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -191,11 +247,14 @@ List<ProductDto> list = pdao.getAllDatas();
 						<div class="col-md-6 d-flex">
 							<div class="cart-detail cart-total p-3 p-md-4">
 								<h3 class="billing-heading mb-4">Total</h3>
-								<p class="d-flex">
-									<span>Date</span> <span id="tex1"></span>
+								<p class="d-flex" name= "datteee">
+									<span>Date</span> <span id="tex1" name = "ddadfds" ></span>
 								</p>
 								<p class="d-flex">
-									<span>Model: </span> <span id="tex2"></span>
+									<span>Time</span> <span id="tex3" name = "timeee" ></span>
+								</p>
+								<p class="d-flex">
+									<span>Model: </span> <span id="tex2" name="namemd" ></span>
 								</p>
 								<hr>
 								<p class="d-flex total-price">

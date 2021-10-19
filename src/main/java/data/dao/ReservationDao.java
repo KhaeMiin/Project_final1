@@ -61,6 +61,7 @@ public class ReservationDao {
 				dto.setAddr1(rs.getString("addr1"));
 				dto.setAddr2(rs.getString("addr2"));
 				dto.setPostcode(rs.getString("postcode"));
+				dto.setWriteday(rs.getString("writeday"));
 				
 				list.add(dto);
 			}
